@@ -11,3 +11,18 @@ def home(request):
         "education": education,
         "skills": skills,
     })
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
+def create_admin(request):
+    User = get_user_model()
+
+    if User.objects.filter(username="admin").exists():
+        return HttpResponse("El superusuario ya existe ✅")
+
+    User.objects.create_superuser(
+        username="admin",
+        email="admin@admin.com",
+        password="Admin1234"
+    )
+    return HttpResponse("Superusuario creado correctamente 🎉")
