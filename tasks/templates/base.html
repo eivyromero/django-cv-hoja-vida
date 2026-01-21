@@ -12,7 +12,7 @@
         <header class="text-center border-b pb-6 mb-6">
             <!-- Imagen de perfil -->
             <div class="mb-4">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sebastian&backgroundColor=b6e3f4&skinColor=light&hairColor=black&facialHairType=BeardMedium" 
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Eivy&backgroundColor=b6e3f4&skinColor=light&hairColor=black" 
                      alt="Foto de perfil" 
                      class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-blue-500 shadow-lg bg-white">
             </div>
@@ -28,7 +28,7 @@
             {% if skills %}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {% for skill in skills %}
-                        <div class="bg-gray-50 p-3 rounded-lg">
+                        <div class="bg-gray-50 p-3 rounded-lg hover:bg-blue-50 transition">
                             <span class="text-2xl">{{ skill.icon }}</span>
                             <span class="ml-2 font-semibold">{{ skill.name }}</span>
                             <span class="text-xs text-gray-500 ml-2">({{ skill.get_category_display }})</span>
@@ -36,7 +36,7 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p class="text-gray-500 italic">No hay habilidades registradas aún.</p>
+                <p class="text-gray-500 italic">No hay habilidades registradas. <a href="/admin" class="text-blue-500 underline">Agregar desde el admin</a></p>
             {% endif %}
         </section>
 
@@ -46,14 +46,28 @@
             
             {% if projects %}
                 {% for project in projects %}
-                    <div class="mb-6 bg-gray-50 p-4 rounded-lg">
+                    <div class="mb-6 bg-gray-50 p-4 rounded-lg hover:shadow-md transition">
                         <h3 class="text-xl font-semibold text-gray-800">{{ project.title }}</h3>
-                        <p class="text-gray-600 text-sm mb-2">{{ project.company }} | {{ project.date }}</p>
+                        {% if project.technologies %}
+                            <p class="text-gray-600 text-sm mb-2">
+                                <span class="font-semibold">Tecnologías:</span> {{ project.technologies }}
+                                {% if project.start_date %} | {{ project.start_date|date:"Y" }}{% endif %}
+                            </p>
+                        {% endif %}
                         <p class="text-gray-700">{{ project.description }}</p>
+                        
+                        <div class="mt-3 flex gap-3">
+                            {% if project.url %}
+                                <a href="{{ project.url }}" target="_blank" class="text-blue-600 hover:underline text-sm">🔗 Ver proyecto</a>
+                            {% endif %}
+                            {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" class="text-gray-700 hover:underline text-sm">💻 GitHub</a>
+                            {% endif %}
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
-                <p class="text-gray-500 italic">No hay proyectos registrados aún.</p>
+                <p class="text-gray-500 italic">No hay proyectos registrados. <a href="/admin" class="text-blue-500 underline">Agregar desde el admin</a></p>
             {% endif %}
         </section>
 
@@ -63,19 +77,30 @@
             
             {% if education %}
                 {% for edu in education %}
-                    <div class="mb-4 bg-gray-50 p-4 rounded-lg">
-                        <h3 class="text-lg font-semibold text-gray-800">{{ edu.title }}</h3>
-                        <p class="text-gray-600">{{ edu.institution }} | {{ edu.date }}</p>
+                    <div class="mb-4 bg-gray-50 p-4 rounded-lg hover:shadow-md transition">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ edu.degree }}</h3>
+                        <p class="text-gray-600">{{ edu.institution }}</p>
+                        {% if edu.field_of_study %}
+                            <p class="text-gray-600 text-sm">{{ edu.field_of_study }}</p>
+                        {% endif %}
+                        <p class="text-gray-500 text-sm">
+                            {{ edu.start_date|date:"Y" }}
+                            {% if edu.end_date %} - {{ edu.end_date|date:"Y" }}{% else %} - Presente{% endif %}
+                        </p>
+                        {% if edu.description %}
+                            <p class="text-gray-700 mt-2 text-sm">{{ edu.description }}</p>
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% else %}
-                <p class="text-gray-500 italic">No hay educación registrada aún.</p>
+                <p class="text-gray-500 italic">No hay educación registrada. <a href="/admin" class="text-blue-500 underline">Agregar desde el admin</a></p>
             {% endif %}
         </section>
 
         <!-- Footer -->
         <footer class="text-center text-gray-500 text-sm mt-8 pt-4 border-t">
             <p>Creado con Django 💚 | Actualizado dinámicamente</p>
+            <p class="mt-2"><a href="/admin" class="text-blue-500 hover:underline">Panel Administrativo</a></p>
         </footer>
     </div>
 </body>
