@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-7e%+g7ak4$)^=
 DEBUG = 'RENDER' not in os.environ  # Cambia de nuevo a esto
 
 # Allowed hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django-cv-hoja-vida.onrender.com', '.onrender.com', '*']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
