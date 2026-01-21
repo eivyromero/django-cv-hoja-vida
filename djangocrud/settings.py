@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'tasks',
+    # APP
+    'tasks.apps.TasksConfig',
 ]
 
 # --------------------------------------------------
@@ -59,7 +60,6 @@ MIDDLEWARE = [
 # URLS & WSGI
 # --------------------------------------------------
 ROOT_URLCONF = 'djangocrud.urls'
-
 WSGI_APPLICATION = 'djangocrud.wsgi.application'
 
 # --------------------------------------------------
@@ -91,6 +91,7 @@ DATABASES = {
     }
 }
 
+# Render / Producción
 if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
