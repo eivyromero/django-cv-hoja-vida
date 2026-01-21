@@ -1,4 +1,13 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from .models import Skill, Project, Education
 
 def home(request):
-    return HttpResponse("La vista funciona correctamente ✅")
+    skills = Skill.objects.all()
+    projects = Project.objects.all()
+    education = Education.objects.all()
+
+    return render(request, "home.html", {
+        "skills": skills,
+        "projects": projects,
+        "education": education,
+    })
