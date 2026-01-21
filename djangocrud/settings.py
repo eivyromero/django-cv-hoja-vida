@@ -13,7 +13,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-7e%+g7ak4$)^=6wq16wnr(f_xb860su#%#*x#p&+h8t(9-_p5%')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+# Temporalmente forzamos DEBUG=True para ver el error
+DEBUG = True
 
 # Allowed hosts
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -119,4 +120,3 @@ LOGIN_URL = "/signin"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
