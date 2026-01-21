@@ -65,7 +65,7 @@ class Project(models.Model):
 class Education(models.Model):
     institution = models.CharField(max_length=200)
     degree = models.CharField(max_length=200)
-    field_of_study = models.CharField(max_length=200)
+    field_of_study = models.CharField(max_length=200, blank=True, default='')
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     description = models.TextField(blank=True)
