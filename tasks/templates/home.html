@@ -1,32 +1,245 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Eivy Romero</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block content %}
-<h1 class="text-3xl font-bold mb-6">Mi Hoja de Vida</h1>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
 
-<h2 class="text-xl font-semibold mt-4">Habilidades</h2>
-<ul>
-    {% for skill in skills %}
-        <li>{{ skill.icon }} {{ skill.name }}</li>
-    {% empty %}
-        <li>No hay habilidades</li>
-    {% endfor %}
-</ul>
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
 
-<h2 class="text-xl font-semibold mt-6">Proyectos</h2>
-<ul>
-    {% for project in projects %}
-        <li>{{ project.title }}</li>
-    {% empty %}
-        <li>No hay proyectos</li>
-    {% endfor %}
-</ul>
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
 
-<h2 class="text-xl font-semibold mt-6">Educación</h2>
-<ul>
-    {% for edu in education %}
-        <li>{{ edu.degree }} - {{ edu.institution }}</li>
-    {% empty %}
-        <li>No hay educación</li>
-    {% endfor %}
-</ul>
-{% endblock %}
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .experience-item {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .experience-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .experience-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .experience-date {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .experience-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .education-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .education-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .education-card p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Eivy René Romero Mendoza</h1>
+            <div class="subtitle">En desarrollo - Ingeniería en TI</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    📧 eivyromero.26@gmail.com
+                </div>
+                <div class="contact-item">
+                    📱 0987213633
+                </div>
+                <div class="contact-item">
+                    📍 Manta, Ecuador
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">💼 Habilidades</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">Técnico en Hardware</div>
+                    <div class="skill-card">Python</div>
+                    <div class="skill-card">Django</div>
+                    <div class="skill-card">HTML/CSS</div>
+                    <div class="skill-card">JavaScript</div>
+                    <div class="skill-card">Git</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🚀 Experiencia</h2>
+                
+                <div class="experience-item">
+                    <div class="experience-title">Servicio al Cliente</div>
+                    <span class="experience-date">Octubre 2023 - Actual</span>
+                    <div class="experience-description">
+                        Atención y soporte directo a clientes, resolución de consultas y gestión de requerimientos técnicos.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-title">Marketing y Desarrollo</div>
+                    <span class="experience-date">Agosto 2023 - Actual</span>
+                    <div class="experience-description">
+                        Desarrollo de estrategias de marketing digital y participación en proyectos de desarrollo web.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-title">Supervisor - Ideal</div>
+                    <span class="experience-date">Enero 2024 - Marzo 2024</span>
+                    <div class="experience-description">
+                        Supervisión de operaciones, gestión de equipo y coordinación de actividades técnicas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">🎓 Educación</h2>
+                <div class="education-card">
+                    <h3>Universidad Laica Eloy Alfaro de Manabí</h3>
+                    <p>Ingeniería en Tecnologías de la Información</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">🎯 En curso</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
