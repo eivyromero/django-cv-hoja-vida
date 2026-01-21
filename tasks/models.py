@@ -41,16 +41,14 @@ class Project(models.Model):
 class Education(models.Model):
     institution = models.CharField(max_length=200)
     degree = models.CharField(max_length=200)
-    field_of_study = models.CharField(max_length=200, blank=True)
+    field_of_study = models.CharField(max_length=200, blank=True, null=True)
     start_date = models.DateField()
-    end_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(blank=True, null=True)
     description = models.TextField(blank=True)
-    
-    class Meta:
-        ordering = ['-start_date']
-    
+
     def __str__(self):
         return f"{self.degree} - {self.institution}"
+
 
 
 class Task(models.Model):
