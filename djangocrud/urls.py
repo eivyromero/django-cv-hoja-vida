@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from tasks.views import home
+from tasks import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # 👈 ESTA LÍNEA ES CLAVE
-    path('', home, name='home'),
+    path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
 ]
