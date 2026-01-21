@@ -2,12 +2,27 @@ from django.shortcuts import render
 from .models import Skill, Project, Education
 
 def home(request):
-    skills = Skill.objects.all()
-    projects = Project.objects.all()
-    education = Education.objects.all()
+    skills = []
+    projects = []
+    education = []
 
-    return render(request, "home.html", {
-        "skills": skills,
-        "projects": projects,
-        "education": education,
+    try:
+        skills = Skill.objects.all()
+    except Exception as e:
+        print("Skill error:", e)
+
+    try:
+        projects = Project.objects.all()
+    except Exception as e:
+        print("Project error:", e)
+
+    try:
+        education = Education.objects.all()
+    except Exception as e:
+        print("Education error:", e)
+
+    return render(request, 'home.html', {
+        'skills': skills,
+        'projects': projects,
+        'education': education
     })

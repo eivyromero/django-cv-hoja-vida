@@ -1,17 +1,32 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 {% block content %}
-<main class="container py-5">
-    <section class="card card-body">
-        <h1 class="display-1 text-center">Django App</h1>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore quibusdam, dolorem quaerat sapiente possimus atque nesciunt odio modi eveniet enim assumenda voluptates tempore minus dolor fugit, accusantium sequi debitis earum!
-        <div class="text-center">
-            <a class="btn btn-secondary" href="/signin/">
-                Signin
-            </a>
-            <a class="btn btn-dark" href="/signup/">
-                Signup
-            </a>
-        </div>
-    </section>
-</main>
+<h1 class="text-3xl font-bold mb-6">Mi Hoja de Vida</h1>
+
+<h2 class="text-xl font-semibold mt-4">Habilidades</h2>
+<ul>
+    {% for skill in skills %}
+        <li>{{ skill.icon }} {{ skill.name }}</li>
+    {% empty %}
+        <li>No hay habilidades</li>
+    {% endfor %}
+</ul>
+
+<h2 class="text-xl font-semibold mt-6">Proyectos</h2>
+<ul>
+    {% for project in projects %}
+        <li>{{ project.title }}</li>
+    {% empty %}
+        <li>No hay proyectos</li>
+    {% endfor %}
+</ul>
+
+<h2 class="text-xl font-semibold mt-6">Educación</h2>
+<ul>
+    {% for edu in education %}
+        <li>{{ edu.degree }} - {{ edu.institution }}</li>
+    {% empty %}
+        <li>No hay educación</li>
+    {% endfor %}
+</ul>
 {% endblock %}
