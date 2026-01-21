@@ -1,45 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -o errexit
+
 pip install -r requirements.txt
+python manage.py collectstatic --no-input
 python manage.py migrate
-python manage.py collectstatic --noinput
 ```
 
-3. Guarda el archivo
+### Paso 2: Verificar que requirements.txt tenga gunicorn
 
----
-
-## **Paso 4: Crear archivo .gitignore**
-
-1. En la raíz del proyecto, crea un archivo llamado **.gitignore**
-2. Pega este contenido:
+Abre `requirements.txt` y verifica que contenga estas líneas (si no están, agrégalas):
 ```
-# Python
-*.pyc
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Django
-*.log
-db.sqlite3
-db.sqlite3-journal
-/staticfiles/
-/media/
-
-# Virtual Environment
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
+gunicorn
+whitenoise
+dj-database-url
