@@ -65,6 +65,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djangocrud.wsgi.application'
 
 # Database
+# Por defecto usa SQLite para desarrollo local
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -72,9 +73,10 @@ DATABASES = {
     }
 }
 
-# Si estás en Render, usa PostgreSQL
+# Si existe DATABASE_URL (producción en Render), usa PostgreSQL
 if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -117,3 +119,4 @@ LOGIN_URL = "/signin"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
