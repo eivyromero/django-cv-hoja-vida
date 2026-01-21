@@ -1,14 +1,13 @@
 from django.shortcuts import render
-from .models import Skill, Project, Education
+from .models import Project, Education, Skill
 
 def home(request):
-    skills = Skill.objects.all()
-    projects = Project.objects.all()
-    education = Education.objects.all()
-    
-    context = {
-        'skills': skills,
-        'projects': projects,
-        'education': education,
-    }
-    return render(request, 'base.html', context)
+    projects = Project.objects.all() if Project.objects.exists() else []
+    education = Education.objects.all() if Education.objects.exists() else []
+    skills = Skill.objects.all() if Skill.objects.exists() else []
+
+    return render(request, "home.html", {
+        "projects": projects,
+        "education": education,
+        "skills": skills,
+    })
