@@ -1,1157 +1,1823 @@
-                        <!DOCTYPE html>
-                        <html lang="es">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>CV - Eivy Romero</title>
-                            <style>
-                                * {
-                                    margin: 0;
-                                    padding: 0;
-                                    box-sizing: border-box;
-                                }
-
-                                :root {
-                                    --pastel-blue: #B4D4FF;
-                                    --pastel-pink: #FFB4D4;
-                                    --pastel-purple: #D4B4FF;
-                                    --pastel-green: #B4FFD4;
-                                    --pastel-yellow: #FFF4B4;
-                                    --pastel-peach: #FFD4B4;
-                                    --text-dark: #4A4A4A;
-                                    --text-light: #6B6B6B;
-                                }
-
-                                body {
-                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                                    background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-purple) 100%);
-                                    min-height: 100vh;
-                                    padding: 20px;
-                                }
-
-                                .container {
-                                    max-width: 1200px;
-                                    margin: 0 auto;
-                                }
-
-                                .header {
-                                    background: white;
-                                    border-radius: 20px;
-                                    padding: 40px;
-                                    margin-bottom: 30px;
-                                    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                                    text-align: center;
-                                }
-
-                                .header h1 {
-                                    color: var(--text-dark);
-                                    font-size: 2.5em;
-                                    margin-bottom: 10px;
-                                }
-
-                                .header .subtitle {
-                                    color: var(--text-light);
-                                    font-size: 1.2em;
-                                    margin-bottom: 20px;
-                                }
-
-                                .contact-info {
-                                    display: flex;
-                                    justify-content: center;
-                                    gap: 30px;
-                                    flex-wrap: wrap;
-                                    margin-top: 20px;
-                                }
-
-                                .contact-item {
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 8px;
-                                    color: var(--text-dark);
-                                    background: var(--pastel-yellow);
-                                    padding: 8px 16px;
-                                    border-radius: 20px;
-                                }
-
-                                .nav-buttons {
-                                    display: flex;
-                                    justify-content: space-between;
-                                    margin-bottom: 20px;
-                                    gap: 10px;
-                                    flex-wrap: wrap;
-                                }
-
-                                .back-button, .pdf-button {
-                                    background: white;
-                                    color: var(--text-dark);
-                                    padding: 12px 24px;
-                                    border-radius: 50px;
-                                    text-decoration: none;
-                                    font-weight: bold;
-                                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                                    transition: all 0.3s;
-                                    border: none;
-                                    cursor: pointer;
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 8px;
-                                }
-
-                                .back-button:hover, .pdf-button:hover {
-                                    transform: translateY(-3px);
-                                    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-                                }
-
-                                .pdf-button {
-                                    background: var(--pastel-pink);
-                                }
-
-                                .sections-menu {
-                                    display: grid;
-                                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                                    gap: 20px;
-                                    margin-bottom: 30px;
-                                }
-
-                                .section-card {
-                                    background: white;
-                                    padding: 30px;
-                                    border-radius: 20px;
-                                    text-align: center;
-                                    cursor: pointer;
-                                    transition: all 0.3s;
-                                    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                                    border: 3px solid transparent;
-                                }
-
-                                .section-card:hover {
-                                    transform: translateY(-10px);
-                                    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-                                }
-
-                                .section-card.perfil { border-color: var(--pastel-blue); }
-                                .section-card.habilidades { border-color: var(--pastel-purple); }
-                                .section-card.experiencia { border-color: var(--pastel-green); }
-                                .section-card.educacion { border-color: var(--pastel-yellow); }
-                                .section-card.proyectos { border-color: var(--pastel-peach); }
-                                .section-card.certificaciones { border-color: var(--pastel-pink); }
-
-                                .section-icon {
-                                    font-size: 3em;
-                                    margin-bottom: 15px;
-                                }
-
-                                .section-title {
-                                    font-size: 1.4em;
-                                    color: var(--text-dark);
-                                    font-weight: bold;
-                                }
-
-                                .section-view {
-                                    display: none;
-                                    background: white;
-                                    border-radius: 20px;
-                                    padding: 50px;
-                                    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                                    animation: fadeIn 0.5s;
-                                }
-
-                                .section-view.active {
-                                    display: block;
-                                }
-
-                                @keyframes fadeIn {
-                                    from { opacity: 0; transform: translateY(20px); }
-                                    to { opacity: 1; transform: translateY(0); }
-                                }
-
-                                .section-header {
-                                    display: flex;
-                                    justify-content: space-between;
-                                    align-items: center;
-                                    margin-bottom: 30px;
-                                    padding-bottom: 20px;
-                                    border-bottom: 3px solid var(--pastel-purple);
-                                }
-
-                                .section-header h2 {
-                                    font-size: 2em;
-                                    color: var(--text-dark);
-                                }
-
-                                .close-section {
-                                    background: var(--pastel-pink);
-                                    color: var(--text-dark);
-                                    padding: 10px 20px;
-                                    border-radius: 50px;
-                                    border: none;
-                                    cursor: pointer;
-                                    font-weight: bold;
-                                    transition: all 0.3s;
-                                }
-
-                                .close-section:hover {
-                                    transform: scale(1.05);
-                                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                                }
-
-                                .profile-content {
-                                    background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-purple));
-                                    padding: 30px;
-                                    border-radius: 15px;
-                                    color: var(--text-dark);
-                                    line-height: 1.8;
-                                    font-size: 1.1em;
-                                }
-
-                                .skills-grid {
-                                    display: grid;
-                                    gap: 20px;
-                                }
-
-                                .skill-item {
-                                    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
-                                    padding: 20px;
-                                    border-radius: 15px;
-                                }
-
-                                .skill-name {
-                                    font-weight: bold;
-                                    color: var(--text-dark);
-                                    margin-bottom: 10px;
-                                    display: flex;
-                                    justify-content: space-between;
-                                    font-size: 1.1em;
-                                }
-
-                                .skill-bar {
-                                    height: 12px;
-                                    background: white;
-                                    border-radius: 10px;
-                                    overflow: hidden;
-                                }
-
-                                .skill-progress {
-                                    height: 100%;
-                                    background: var(--text-dark);
-                                    border-radius: 10px;
-                                    transition: width 1s ease;
-                                }
-
-                                .experience-list {
-                                    display: grid;
-                                    gap: 25px;
-                                }
-
-                                .experience-card {
-                                    background: linear-gradient(135deg, var(--pastel-green), var(--pastel-yellow));
-                                    padding: 30px;
-                                    border-radius: 15px;
-                                }
-
-                                .experience-title {
-                                    font-size: 1.5em;
-                                    color: var(--text-dark);
-                                    margin-bottom: 15px;
-                                    font-weight: bold;
-                                }
-
-                                .experience-date {
-                                    background: white;
-                                    color: var(--text-dark);
-                                    padding: 8px 16px;
-                                    border-radius: 20px;
-                                    display: inline-block;
-                                    margin-bottom: 15px;
-                                    font-weight: bold;
-                                    cursor: pointer;
-                                    transition: all 0.3s;
-                                }
-
-                                .experience-date:hover {
-                                    transform: scale(1.05);
-                                    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-                                }
-
-                                .experience-description {
-                                    color: var(--text-dark);
-                                    line-height: 1.8;
-                                    margin-bottom: 15px;
-                                }
-
-                                .experience-tags {
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    gap: 10px;
-                                    margin-top: 15px;
-                                }
-
-                                .tag {
-                                    background: white;
-                                    color: var(--text-dark);
-                                    padding: 6px 14px;
-                                    border-radius: 15px;
-                                    font-size: 0.9em;
-                                }
-
-                                .education-card {
-                                    background: linear-gradient(135deg, var(--pastel-yellow), var(--pastel-peach));
-                                    padding: 40px;
-                                    border-radius: 15px;
-                                    text-align: center;
-                                }
-
-                                .education-card h3 {
-                                    font-size: 1.8em;
-                                    color: var(--text-dark);
-                                    margin-bottom: 15px;
-                                }
-
-                                .education-card p {
-                                    color: var(--text-dark);
-                                    font-size: 1.1em;
-                                    margin-bottom: 10px;
-                                }
-
-                                .projects-grid {
-                                    display: grid;
-                                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                                    gap: 25px;
-                                }
-
-                                .project-card {
-                                    background: linear-gradient(135deg, var(--pastel-peach), var(--pastel-pink));
-                                    border-radius: 15px;
-                                    overflow: hidden;
-                                    transition: all 0.3s;
-                                }
-
-                                .project-card:hover {
-                                    transform: translateY(-10px);
-                                    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-                                }
-
-                                .project-image {
-                                    height: 150px;
-                                    background: var(--text-dark);
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    color: white;
-                                    font-size: 3em;
-                                }
-
-                                .project-content {
-                                    padding: 25px;
-                                }
-
-                                .project-title {
-                                    font-size: 1.3em;
-                                    color: var(--text-dark);
-                                    margin-bottom: 10px;
-                                    font-weight: bold;
-                                }
-
-                                .project-description {
-                                    color: var(--text-dark);
-                                    line-height: 1.6;
-                                    margin-bottom: 15px;
-                                }
-
-                                .certifications-grid {
-                                    display: grid;
-                                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                                    gap: 20px;
-                                }
-
-                                .cert-card {
-                                    background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
-                                    padding: 30px;
-                                    border-radius: 15px;
-                                    text-align: center;
-                                    transition: all 0.3s;
-                                }
-
-                                .cert-card:hover {
-                                    transform: scale(1.05);
-                                }
-
-                                .cert-badge {
-                                    font-size: 3em;
-                                    margin-bottom: 15px;
-                                }
-
-                                .cert-title {
-                                    font-size: 1.2em;
-                                    color: var(--text-dark);
-                                    font-weight: bold;
-                                    margin-bottom: 5px;
-                                }
-
-                                .cert-year {
-                                    color: var(--text-dark);
-                                    opacity: 0.8;
-                                }
-
-                                .modal {
-                                    display: none;
-                                    position: fixed;
-                                    top: 0;
-                                    left: 0;
-                                    width: 100%;
-                                    height: 100%;
-                                    background: rgba(0,0,0,0.5);
-                                    z-index: 1000;
-                                    align-items: center;
-                                    justify-content: center;
-                                }
-
-                                .modal.active {
-                                    display: flex;
-                                }
-
-                                .modal-content {
-                                    background: white;
-                                    padding: 40px;
-                                    border-radius: 20px;
-                                    max-width: 500px;
-                                    width: 90%;
-                                    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-                                }
-
-                                .modal-header {
-                                    font-size: 1.5em;
-                                    color: var(--text-dark);
-                                    margin-bottom: 20px;
-                                    font-weight: bold;
-                                }
-
-                                .form-group {
-                                    margin-bottom: 20px;
-                                }
-
-                                .form-group label {
-                                    display: block;
-                                    color: var(--text-dark);
-                                    margin-bottom: 8px;
-                                    font-weight: bold;
-                                }
-
-                                .form-group input {
-                                    width: 100%;
-                                    padding: 12px;
-                                    border: 2px solid var(--pastel-purple);
-                                    border-radius: 10px;
-                                    font-size: 1em;
-                                }
-
-                                .modal-buttons {
-                                    display: flex;
-                                    gap: 10px;
-                                    justify-content: flex-end;
-                                    margin-top: 25px;
-                                }
-
-                                .btn {
-                                    padding: 12px 24px;
-                                    border-radius: 50px;
-                                    border: none;
-                                    cursor: pointer;
-                                    font-weight: bold;
-                                    transition: all 0.3s;
-                                }
-
-                                .btn-save {
-                                    background: var(--pastel-green);
-                                    color: var(--text-dark);
-                                }
-
-                                .btn-cancel {
-                                    background: var(--pastel-pink);
-                                    color: var(--text-dark);
-                                }
-
-                                .btn:hover {
-                                    transform: scale(1.05);
-                                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                                }
-
-                                @media (max-width: 768px) {
-                                    .header h1 {
-                                        font-size: 1.8em;
-                                    }
-
-                                    .sections-menu {
-                                        grid-template-columns: 1fr;
-                                    }
-
-                                    .section-view {
-                                        padding: 30px 20px;
-                                    }
-
-                                    .projects-grid {
-                                        grid-template-columns: 1fr;
-                                    }
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <div class="container">
-                                <div class="nav-buttons">
-                                    <button class="pdf-button" onclick="generarPDF()">📄 Generar PDF</button>
-                                </div>
-
-                                <div class="header">
-                                    <h1>Eivy René Romero Mendoza</h1>
-                                    <div class="subtitle">Técnico | Ingeniero en TI</div>
-                                    <div class="contact-info">
-                                        <div class="contact-item">📧 eivyromero.26@gmail.com</div>
-                                        <div class="contact-item">📱 0987213633</div>
-                                        <div class="contact-item">📍 Montecristi, Ecuador</div>
-                                    </div>
-                                </div>
-
-                                <div id="mainMenu" class="sections-menu">
-                                    <div class="section-card perfil" onclick="mostrarSeccion('perfil')">
-                                        <div class="section-icon">👤</div>
-                                        <div class="section-title">Perfil Profesional</div>
-                                    </div>
-                                    <div class="section-card habilidades" onclick="mostrarSeccion('habilidades')">
-                                        <div class="section-icon">💻</div>
-                                        <div class="section-title">Habilidades Técnicas</div>
-                                    </div>
-                                    <div class="section-card experiencia" onclick="mostrarSeccion('experiencia')">
-                                        <div class="section-icon">🚀</div>
-                                        <div class="section-title">Experiencia Laboral</div>
-                                    </div>
-                                    <div class="section-card educacion" onclick="mostrarSeccion('educacion')">
-                                        <div class="section-icon">🎓</div>
-                                        <div class="section-title">Educación</div>
-                                    </div>
-                                    <div class="section-card proyectos" onclick="mostrarSeccion('proyectos')">
-                                        <div class="section-icon">🎯</div>
-                                        <div class="section-title">Proyectos Destacados</div>
-                                    </div>
-                                    <div class="section-card certificaciones" onclick="mostrarSeccion('certificaciones')">
-                                        <div class="section-icon">🏅</div>
-                                        <div class="section-title">Certificaciones</div>
-                                    </div>
-                                </div>
-
-                                <div id="perfil" class="section-view">
-                                    <div class="section-header">
-                                        <h2>👤 Perfil Profesional</h2>
-                                        <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
-                                    </div>
-                                    <div class="profile-content">
-                                        <p>
-                                            Estudiante de Ingeniería en Tecnologías de la Información con sólida experiencia en desarrollo web, 
-                                            soporte técnico y liderazgo de equipos. Apasionado por crear soluciones tecnológicas innovadoras 
-                                            y aprender constantemente nuevas tecnologías.
-                                        </p>
-                                        <br>
-                                        <p>
-                                            Enfocado en el desarrollo y cooperación de proyectos en equipo, con habilidades en Python y Gjango
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div id="habilidades" class="section-view">
-                                    <div class="section-header">
-                                        <h2>💻 Habilidades Técnicas</h2>
-                                        <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
-                                    </div>
-                                    <div class="skills-grid">
-                                        <div class="skill-item">
-                                            <div class="skill-name"><span>Python</span><span>90%</span></div>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-                                        </div>
-                                        <div class="skill-item">
-                                            <div class="skill-name"><span>Django</span><span>85%</span></div>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                                        </div>
-                                        <div class="skill-item">
-                                            <div class="skill-name"><span>HTML/CSS</span><span>95%</span></div>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
-                                        </div>
-                                        <div class="skill-item">
-                                            <div class="skill-name"><span>JavaScript</span><span>80%</span></div>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
-                                        </div>
-                                        <div class="skill-item">
-                                            <div class="skill-name"><span>Git/GitHub</span><span>85%</span></div>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-                                        </div>
-                                        <div class="skill-item">
-                                            <div class="skill-name"><span>Soporte Técnico</span><span>95%</span></div>
-                                            <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="experiencia" class="section-view">
-                                    <div class="section-header">
-                                        <h2>🚀 Experiencia Laboral</h2>
-                                        <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
-                                    </div>
-                                    <div class="experience-list">
-                                        <div class="experience-card">
-                                            <div class="experience-title">Servicio al Cliente</div>
-                                            <span class="experience-date" onclick="editarFecha(0)">Octubre 2023 - Presente</span>
-                                            <div class="experience-description">
-                                                Gestión integral de atención al cliente, brindando soporte técnico especializado y resolución 
-                                                de problemas de hardware y software.
-                                            </div>
-                                            <div class="experience-tags">
-                                                <span class="tag">Atención al Cliente</span>
-                                                <span class="tag">Soporte Técnico</span>
-                                                <span class="tag">Resolución de Problemas</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="experience-card">
-                                            <div class="experience-title">Marketing Digital y Desarrollo</div>
-                                            <span class="experience-date" onclick="editarFecha(1)">Agosto 2023 - Presente</span>
-                                            <div class="experience-description">
-                                                Desarrollo e implementación de estrategias de marketing digital efectivas. Creación de 
-                                                contenido web optimizado y participación activa en proyectos de desarrollo full-stack.
-                                            </div>
-                                            <div class="experience-tags">
-                                                <span class="tag">Marketing Digital</span>
-                                                <span class="tag">Desarrollo Web</span>
-                                                <span class="tag">SEO</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="experience-card">
-                                            <div class="experience-title">Supervisor de Operaciones - Ideal</div>
-                                            <span class="experience-date" onclick="editarFecha(2)">Enero 2024 - Marzo 2024</span>
-                                            <div class="experience-description">
-                                                Supervisión y coordinación de equipos de trabajo, optimización de procesos operativos 
-                                                y gestión de recursos técnicos.
-                                            </div>
-                                            <div class="experience-tags">
-                                                <span class="tag">Liderazgo</span>
-                                                <span class="tag">Gestión de Equipos</span>
-                                                <span class="tag">Optimización</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="educacion" class="section-view">
-                                    <div class="section-header">
-                                        <h2>🎓 Educación</h2>
-                                        <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
-                                    </div>
-                                    <div class="education-card">
-                                        <h3>Universidad Laica Eloy Alfaro de Manabí</h3>
-                                        <p style="font-size: 1.3em; margin-top: 15px;">Ingeniería en Tecnologías de la Información</p>
-                                        <p style="margin-top: 20px;">📅 2022 - 2026 (En curso)</p>
-                                        <p style="margin-top: 10px;">🏆 Promedio: Regular</p>
-                                    </div>
-                                </div>
-
-                                <div id="proyectos" class="section-view">
-                                    <div class="section-header">
-                                        <h2>🎯 Proyectos Destacados</h2>
-                                        <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
-                                    </div>
-                                    <div class="projects-grid">
-                                        <div class="project-card">
-                                            <div class="project-image">💼</div>
-                                            <div class="project-content">
-                                                <div class="project-title">Sistema de CV Automatizado</div>
-                                                <div class="project-description">
-                                                    Aplicación web completa para gestión de hojas de vida con Django. Incluye autenticación, 
-                                                    CRUD completo, y exportación a PDF.
-                                                </div>
-                                                <div class="experience-tags">
-                                                    <span class="tag">Django</span>
-                                                    <span class="tag">Python</span>
-                                                    <span class="tag">PostgreSQL</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="project-card">
-                                            <div class="project-image">🛒</div>
-                                            <div class="project-content">
-                                                <div class="project-title">E-Commerce Platform</div>
-                                                <div class="project-description">
-                                                    Plataforma de comercio electrónico con carrito de compras, pasarela de pagos y 
-                                                    gestión de inventario en tiempo real.
-                                                </div>
-                                                <div class="experience-tags">
-                                                    <span class="tag">React</span>
-                                                    <span class="tag">Node.js</span>
-                                                    <span class="tag">MongoDB</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="project-card">
-                                            <div class="project-image">📊</div>
-                                            <div class="project-content">
-                                                <div class="project-title">Dashboard Analytics</div>
-                                                <div class="project-description">
-                                                    Sistema de análisis de datos con visualizaciones interactivas y reportes automatizados.
-                                                </div>
-                                                <div class="experience-tags">
-                                                    <span class="tag">Python</span>
-                                                    <span class="tag">Pandas</span>
-                                                    <span class="tag">Chart.js</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="certificaciones" class="section-view">
-                                    <div class="section-header">
-                                        <h2>🏅 Certificaciones</h2>
-                                        <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
-                                    </div>
-                                    <div class="certifications-grid">
-                                        <div class="cert-card">
-                                            <div class="cert-badge">🐍</div>
-                                            <div class="cert-title">Python Developer</div>
-                                            <div class="cert-year">2023</div>
-                                        </div>
-                                        <div class="cert-card">
-                                            <div class="cert-badge">🌐</div>
-                                            <div class="cert-title">Full Stack Web</div>
-                                            <div class="cert-year">2024</div>
-                                        </div>
-                                        <div class="cert-card">
-                                            <div class="cert-badge">🔒</div>
-                                            <div class="cert-title">Ciberseguridad</div>
-                                            <div class="cert-year">2024</div>
-                                        </div>
-                                        <div class="cert-card">
-                                            <div class="cert-badge">☁️</div>
-                                            <div class="cert-title">Cloud Computing</div>
-                                            <div class="cert-year">2024</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="modalFechas" class="modal">
-                                <div class="modal-content">
-                                    <div class="modal-header">Editar Fechas de Experiencia</div>
-                                    <div class="form-group">
-                                        <label>Fecha de Inicio:</label>
-                                        <input type="month" id="fechaInicio">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Fecha de Fin:</label>
-                                        <input type="month" id="fechaFin">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" id="trabajoActual" onchange="toggleFechaFin()">
-                                            Trabajo Actual
-                                        </label>
-                                    </div>
-                                    <div class="modal-buttons">
-                                        <button class="btn btn-cancel" onclick="cerrarModal()">Cancelar</button>
-                                        <button class="btn btn-save" onclick="guardarFechas()">Guardar</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                                let experienciaActual = 0;
-
-                                function mostrarSeccion(seccion) {
-                                    document.getElementById('mainMenu').style.display = 'none';
-                                    document.querySelectorAll('.section-view').forEach(view => {
-                                        view.classList.remove('active');
-                                    });
-                                    document.getElementById(seccion).classList.add('active');
-                                    window.scrollTo(0, 0);
-                                }
-
-                                function cerrarSeccion() {
-                                    document.querySelectorAll('.section-view').forEach(view => {
-                                        view.classList.remove('active');
-                                    });
-                                    document.getElementById('mainMenu').style.display = 'grid';
-                                    window.scrollTo(0, 0);
-                                }
-
-                                function editarFecha(index) {
-                                    experienciaActual = index;
-                                    document.getElementById('modalFechas').classList.add('active');
-                                }
-
-                                function cerrarModal() {
-                                    document.getElementById('modalFechas').classList.remove('active');
-                                    document.getElementById('trabajoActual').checked = false;
-                                    document.getElementById('fechaFin').disabled = false;
-                                }
-
-                                function toggleFechaFin() {
-                                    const checkbox = document.getElementById('trabajoActual');
-                                    const fechaFin = document.getElementById('fechaFin');
-
-                                    if (checkbox.checked) {
-                                        fechaFin.value = '';
-                                        fechaFin.disabled = true;
-                                    } else {
-                                        fechaFin.disabled = false;
-                                    }
-                                }
-
-                                function guardarFechas() {
-                                    const fechaInicio = document.getElementById('fechaInicio').value;
-                                    const fechaFin = document.getElementById('fechaFin').value;
-                                    const trabajoActual = document.getElementById('trabajoActual').checked;
-
-                                    if (!fechaInicio) {
-                                        alert('Por favor ingrese la fecha de inicio');
-                                        return;
-                                    }
-
-                                    if (!trabajoActual && !fechaFin) {
-                                        alert('Por favor ingrese la fecha de fin o marque "Trabajo Actual"');
-                                        return;
-                                    }
-
-                                    if (!trabajoActual && fechaInicio > fechaFin) {
-                                        alert('La fecha de inicio debe ser anterior a la fecha de fin');
-                                        return;
-                                    }
-
-                                    const inicio = new Date(fechaInicio + '-01');
-                                    const mesInicio = inicio.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
-                                    const mesInicioCapitalizado = mesInicio.charAt(0).toUpperCase() + mesInicio.slice(1);
-
-                                    let fechaTexto = mesInicioCapitalizado;
-
-                                    if (trabajoActual) {
-                                        fechaTexto += ' - Presente';
-                                    } else {
-                                        const fin = new Date(fechaFin + '-01');
-                                        const mesFin = fin.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
-                                        const mesFinCapitalizado = mesFin.charAt(0).toUpperCase() + mesFin.slice(1);
-                                        fechaTexto += ' - ' + mesFinCapitalizado;
-                                    }
-
-                                    const experienceCards = document.querySelectorAll('.experience-date');
-                                    experienceCards[experienciaActual].textContent = fechaTexto;
-
-                                    cerrarModal();
-                                }
-
-                                function generarPDF() {
-                                    const ventanaPDF = window.open('', '_blank');
-
-                                    const experienciaHTML = document.querySelector('#experiencia .experience-list').innerHTML;
-
-                                    ventanaPDF.document.write(`
-                                        <!DOCTYPE html>
-                                        <html lang="es">
-                                        <head>
-                                            <meta charset="UTF-8">
-                                            <title>CV - Eivy Romero</title>
-                                            <style>
-                                                * {
-                                                    margin: 0;
-                                                    padding: 0;
-                                                    box-sizing: border-box;
-                                                }
-
-                                                body {
-                                                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                                                    padding: 40px;
-                                                    background: white;
-                                                    color: #4A4A4A;
-                                                }
-
-                                                .header {
-                                                    text-align: center;
-                                                    padding: 30px;
-                                                    background: linear-gradient(135deg, #B4D4FF 0%, #D4B4FF 100%);
-                                                    border-radius: 15px;
-                                                    margin-bottom: 30px;
-                                                }
-
-                                                .header h1 {
-                                                    font-size: 2.5em;
-                                                    margin-bottom: 10px;
-                                                    color: #4A4A4A;
-                                                }
-
-                                                .subtitle {
-                                                    font-size: 1.2em;
-                                                    margin-bottom: 15px;
-                                                }
-
-                                                .contact-info {
-                                                    display: flex;
-                                                    justify-content: center;
-                                                    gap: 20px;
-                                                    flex-wrap: wrap;
-                                                    margin-top: 15px;
-                                                }
-
-                                                .section {
-                                                    page-break-inside: avoid;
-                                                    margin-bottom: 30px;
-                                                    padding: 25px;
-                                                    background: #f8f9ff;
-                                                    border-radius: 15px;
-                                                }
-
-                                                .section-title {
-                                                    font-size: 1.8em;
-                                                    color: #667eea;
-                                                    margin-bottom: 20px;
-                                                    padding-bottom: 10px;
-                                                    border-bottom: 3px solid #D4B4FF;
-                                                }
-
-                                                .skill-item {
-                                                    margin-bottom: 15px;
-                                                    padding: 15px;
-                                                    background: white;
-                                                    border-radius: 10px;
-                                                }
-
-                                                .skill-name {
-                                                    font-weight: bold;
-                                                    margin-bottom: 8px;
-                                                    display: flex;
-                                                    justify-content: space-between;
-                                                }
-
-                                                .experience-card {
-                                                    margin-bottom: 20px;
-                                                    padding: 20px;
-                                                    background: white;
-                                                    border-radius: 10px;
-                                                    border-left: 4px solid #B4FFD4;
-                                                }
-
-                                                .experience-title {
-                                                    font-size: 1.3em;
-                                                    font-weight: bold;
-                                                    margin-bottom: 8px;
-                                                }
-
-                                                .experience-date {
-                                                    color: #667eea;
-                                                    font-weight: bold;
-                                                    margin-bottom: 10px;
-                                                    display: inline-block;
-                                                }
-
-                                                .experience-description {
-                                                    line-height: 1.6;
-                                                    margin-bottom: 10px;
-                                                }
-
-                                                .tag {
-                                                    display: inline-block;
-                                                    background: #D4B4FF;
-                                                    padding: 5px 12px;
-                                                    border-radius: 15px;
-                                                    margin-right: 8px;
-                                                    margin-top: 5px;
-                                                    font-size: 0.9em;
-                                                }
-
-                                                .education-card {
-                                                    padding: 25px;
-                                                    background: linear-gradient(135deg, #FFF4B4 0%, #FFD4B4 100%);
-                                                    border-radius: 15px;
-                                                    text-align: center;
-                                                }
-
-                                                .project-card {
-                                                    margin-bottom: 20px;
-                                                    padding: 20px;
-                                                    background: white;
-                                                    border-radius: 10px;
-                                                    border: 2px solid #FFD4B4;
-                                                }
-
-                                                .project-title {
-                                                    font-size: 1.2em;
-                                                    font-weight: bold;
-                                                    margin-bottom: 10px;
-                                                }
-
-                                                .cert-card {
-                                                    display: inline-block;
-                                                    padding: 20px;
-                                                    background: linear-gradient(135deg, #FFB4D4, #D4B4FF);
-                                                    border-radius: 15px;
-                                                    text-align: center;
-                                                    margin: 10px;
-                                                    min-width: 150px;
-                                                }
-
-                                                .cert-badge {
-                                                    font-size: 2.5em;
-                                                    margin-bottom: 10px;
-                                                }
-
-                                                .print-button {
-                                                    position: fixed;
-                                                    top: 20px;
-                                                    right: 20px;
-                                                    background: #FFB4D4;
-                                                    color: #4A4A4A;
-                                                    padding: 12px 24px;
-                                                    border-radius: 50px;
-                                                    border: none;
-                                                    cursor: pointer;
-                                                    font-weight: bold;
-                                                    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                                                    font-size: 1em;
-                                                }
-
-                                                .print-button:hover {
-                                                    transform: scale(1.05);
-                                                }
-
-                                                @media print {
-                                                    body {
-                                                        padding: 20px;
-                                                    }
-
-                                                    .print-button {
-                                                        display: none;
-                                                    }
-
-                                                    .section {
-                                                        page-break-inside: avoid;
-                                                    }
-                                                }
-                                            </style>
-                                        </head>
-                                        <body>
-                                            <button class="print-button" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
-
-                                            <div class="header">
-                                                <h1>Eivy René Romero Mendoza</h1>
-                                                <div class="subtitle">Desarrollador Full Stack | Ingeniero en TI</div>
-                                                <div class="contact-info">
-                                                    <div>📧 eivyromero.26@gmail.com</div>
-                                                    <div>📱 0987213633</div>
-                                                    <div>📍 Manta, Ecuador</div>
-                                                </div>
-                                            </div>
-
-                                            <div class="section">
-                                                <h2 class="section-title">👤 Perfil Profesional</h2>
-                                                <p style="line-height: 1.8;">
-                                                    Estudiante de Ingeniería en Tecnologías de la Información con sólida experiencia en desarrollo web, 
-                                                    soporte técnico y liderazgo de equipos. Apasionado por crear soluciones tecnológicas innovadoras 
-                                                    y aprender constantemente nuevas tecnologías.
-                                                </p>
-                                            </div>
-
-                                            <div class="section">
-                                                <h2 class="section-title">💻 Habilidades Técnicas</h2>
-                                                <div class="skill-item">
-                                                    <div class="skill-name"><span>Python</span><span>90%</span></div>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class="skill-name"><span>Django</span><span>85%</span></div>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class="skill-name"><span>HTML/CSS</span><span>95%</span></div>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class="skill-name"><span>JavaScript</span><span>80%</span></div>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class="skill-name"><span>Git/GitHub</span><span>85%</span></div>
-                                                </div>
-                                                <div class="skill-item">
-                                                    <div class="skill-name"><span>Soporte Técnico</span><span>95%</span></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="section">
-                                                <h2 class="section-title">🚀 Experiencia Laboral</h2>
-                                                ${experienciaHTML}
-                                            </div>
-
-                                            <div class="section">
-                                                <h2 class="section-title">🎓 Educación</h2>
-                                                <div class="education-card">
-                                                    <h3>Universidad Laica Eloy Alfaro de Manabí</h3>
-                                                    <p style="font-size: 1.2em; margin-top: 15px;">Ingeniería en Tecnologías de la Información</p>
-                                                    <p style="margin-top: 15px;">📅 2022 - 2026 (En curso)</p>
-                                                    <p style="margin-top: 10px;">🏆 Promedio: Excelente</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="section">
-                                                <h2 class="section-title">🎯 Proyectos Destacados</h2>
-                                                <div class="project-card">
-                                                    <div class="project-title">💼 Sistema de CV Automatizado</div>
-                                                    <div style="margin-bottom: 10px;">Aplicación web completa para gestión de hojas de vida con Django. Incluye autenticación, CRUD completo, y exportación a PDF.</div>
-                                                    <div>
-                                                        <span class="tag">Django</span>
-                                                        <span class="tag">Python</span>
-                                                        <span class="tag">PostgreSQL</span>
-                                                    </div>
-                                                </div>
-                                                <div class="project-card">
-                                                    <div class="project-title">🛒 E-Commerce Platform</div>
-                                                    <div style="margin-bottom: 10px;">Plataforma de comercio electrónico con carrito de compras, pasarela de pagos y gestión de inventario.</div>
-                                                    <div>
-                                                        <span class="tag">React</span>
-                                                        <span class="tag">Node.js</span>
-                                                        <span class="tag">MongoDB</span>
-                                                    </div>
-                                                </div>
-                                                <div class="project-card">
-                                                    <div class="project-title">📊 Dashboard Analytics</div>
-                                                    <div style="margin-bottom: 10px;">Sistema de análisis de datos con visualizaciones interactivas y reportes automatizados.</div>
-                                                    <div>
-                                                        <span class="tag">Python</span>
-                                                        <span class="tag">Pandas</span>
-                                                        <span class="tag">Chart.js</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="section">
-                                                <h2 class="section-title">🏅 Certificaciones</h2>
-                                                <div class="cert-card">
-                                                    <div class="cert-badge">🐍</div>
-                                                    <div><strong>Python Developer</strong></div>
-                                                    <div>2023</div>
-                                                </div>
-                                                <div class="cert-card">
-                                                    <div class="cert-badge">🌐</div>
-                                                    <div><strong>Full Stack Web</strong></div>
-                                                    <div>2024</div>
-                                                </div>
-                                                <div class="cert-card">
-                                                    <div class="cert-badge">🔒</div>
-                                                    <div><strong>Ciberseguridad</strong></div>
-                                                    <div>2024</div>
-                                                </div>
-                                                <div class="cert-card">
-                                                    <div class="cert-badge">☁️</div>
-                                                    <div><strong>Cloud Computing</strong></div>
-                                                    <div>2024</div>
-                                                </div>
-                                            </div>
-                                        </body>
-                                        </html>
-                                    `);
-
-                                    ventanaPDF.document.close();
-                                }
-                            </script>
-                        </body>
-                        </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Eivy Romero</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pastel-blue: #B4D4FF;
+            --pastel-pink: #FFB4D4;
+            --pastel-purple: #D4B4FF;
+            --pastel-green: #B4FFD4;
+            --pastel-yellow: #FFF4B4;
+            --pastel-peach: #FFD4B4;
+            --text-dark: #4A4A4A;
+            --text-light: #6B6B6B;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-purple) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--text-dark);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: var(--text-light);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-dark);
+            background: var(--pastel-yellow);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .back-button {
+            background: white;
+            color: var(--text-dark);
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-download-full {
+            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-blue)) !important;
+            font-size: 1.05em;
+        }
+
+        .sections-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .section-card.perfil { border-color: var(--pastel-blue); }
+        .section-card.habilidades { border-color: var(--pastel-purple); }
+        .section-card.experiencia { border-color: var(--pastel-green); }
+        .section-card.educacion { border-color: var(--pastel-yellow); }
+        .section-card.cursos { border-color: var(--pastel-peach); }
+        .section-card.reconocimientos { border-color: var(--pastel-pink); }
+        .section-card.garage { border-color: #FFD700; }
+
+        .section-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        .section-view {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        .section-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--pastel-purple);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 2em;
+            color: var(--text-dark);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .close-section, .pdf-section, .add-button {
+            background: var(--pastel-pink);
+            color: var(--text-dark);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .pdf-section {
+            background: var(--pastel-green);
+        }
+
+        .add-button {
+            background: var(--pastel-blue);
+        }
+
+        .close-section:hover, .pdf-section:hover, .add-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .profile-content {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-purple));
+            padding: 30px;
+            border-radius: 15px;
+            color: var(--text-dark);
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .skill-name {
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1em;
+        }
+
+        .skill-bar {
+            height: 12px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--text-dark);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .experience-list, .cursos-list, .reconocimientos-list {
+            display: grid;
+            gap: 25px;
+        }
+
+        .experience-card, .curso-card, .reconocimiento-card {
+            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-yellow));
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .card-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit, .btn-delete {
+            background: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover, .btn-delete:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .experience-title, .curso-title, .reconocimiento-title {
+            font-size: 1.5em;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: bold;
+            padding-right: 100px;
+        }
+
+        .experience-date {
+            background: white;
+            color: var(--text-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .experience-date:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .experience-description, .curso-description, .reconocimiento-description {
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .experience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: white;
+            color: var(--text-dark);
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .education-card {
+            background: linear-gradient(135deg, var(--pastel-yellow), var(--pastel-peach));
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .education-card h3 {
+            font-size: 1.8em;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .education-card p {
+            color: var(--text-dark);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        /* Venta de Garaje - Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--pastel-peach), var(--pastel-pink));
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-image {
+            height: 200px;
+            background: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4em;
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-title {
+            font-size: 1.4em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .service-description {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .service-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .service-select input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .btn-solicitar {
+            width: 100%;
+            background: var(--pastel-green);
+            color: var(--text-dark);
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .btn-solicitar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 20px;
+        }
+
+        .modal-header {
+            font-size: 1.5em;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--pastel-purple);
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-save {
+            background: var(--pastel-green);
+            color: var(--text-dark);
+        }
+
+        .btn-cancel {
+            background: var(--pastel-pink);
+            color: var(--text-dark);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .info-box {
+            background: #f0f8ff;
+            border-left: 4px solid var(--pastel-blue);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .sections-menu {
+                grid-template-columns: 1fr;
+            }
+
+            .section-view {
+                padding: 30px 20px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-buttons">
+            <a href="javascript:history.back()" class="back-button">← Volver</a>
+            <button class="back-button btn-download-full" onclick="imprimirCVCompleto()">
+                📄 Descargar CV Completo
+            </button>
+        </div>
+
+        <div class="header">
+            <h1>Eivy René Romero Mendoza</h1>
+            <div class="subtitle">Desarrollador Full Stack | Ingeniero en TI</div>
+            <div class="contact-info">
+                <div class="contact-item">📧 eivyromero.26@gmail.com</div>
+                <div class="contact-item">📱 0987213633</div>
+                <div class="contact-item">📍 Manta, Ecuador</div>
+            </div>
+        </div>
+
+        <div id="mainMenu" class="sections-menu">
+            <div class="section-card perfil" onclick="mostrarSeccion('perfil')">
+                <div class="section-icon">👤</div>
+                <div class="section-title">Perfil Profesional</div>
+            </div>
+            <div class="section-card habilidades" onclick="mostrarSeccion('habilidades')">
+                <div class="section-icon">💻</div>
+                <div class="section-title">Habilidades Técnicas</div>
+            </div>
+            <div class="section-card experiencia" onclick="mostrarSeccion('experiencia')">
+                <div class="section-icon">🚀</div>
+                <div class="section-title">Experiencia Laboral</div>
+            </div>
+            <div class="section-card educacion" onclick="mostrarSeccion('educacion')">
+                <div class="section-icon">🎓</div>
+                <div class="section-title">Educación</div>
+            </div>
+            <div class="section-card cursos" onclick="mostrarSeccion('cursos')">
+                <div class="section-icon">📚</div>
+                <div class="section-title">Cursos Realizados</div>
+            </div>
+            <div class="section-card reconocimientos" onclick="mostrarSeccion('reconocimientos')">
+                <div class="section-icon">🏆</div>
+                <div class="section-title">Reconocimientos</div>
+            </div>
+            <div class="section-card garage" onclick="mostrarSeccion('garage')">
+                <div class="section-icon">🔧</div>
+                <div class="section-title">Servicios Técnicos</div>
+            </div>
+        </div>
+
+        <!-- Perfil -->
+        <div id="perfil" class="section-view">
+            <div class="section-header">
+                <h2>👤 Perfil Profesional</h2>
+                <div class="header-buttons">
+                    <button class="pdf-section" onclick="imprimirSeccion('perfil')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="profile-content">
+                <p>
+                    Estudiante de Ingeniería en Tecnologías de la Información con sólida experiencia en desarrollo web, 
+                    soporte técnico y liderazgo de equipos. Apasionado por crear soluciones tecnológicas innovadoras 
+                    y aprender constantemente nuevas tecnologías.
+                </p>
+                <br>
+                <p>
+                    Enfocado en el desarrollo full-stack con Python/Django y tecnologías modernas del front-end. 
+                    Con habilidades comprobadas en gestión de proyectos, trabajo en equipo y resolución de problemas complejos.
+                </p>
+            </div>
+        </div>
+
+        <!-- Habilidades -->
+        <div id="habilidades" class="section-view">
+            <div class="section-header">
+                <h2>💻 Habilidades Técnicas</h2>
+                <div class="header-buttons">
+                    <button class="pdf-section" onclick="imprimirSeccion('habilidades')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-name"><span>Python</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Django</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>HTML/CSS</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>JavaScript</span><span>80%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Git/GitHub</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Soporte Técnico</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experiencia Laboral -->
+        <div id="experiencia" class="section-view">
+            <div class="section-header">
+                <h2>🚀 Experiencia Laboral</h2>
+                <div class="header-buttons">
+                    <button class="add-button" onclick="abrirModalExperiencia()">➕ Agregar</button>
+                    <button class="pdf-section" onclick="imprimirSeccion('experiencia')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="experience-list" id="experienceList">
+                <div class="experience-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarExperiencia(0)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarExperiencia(0)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="experience-title">Servicio al Cliente</div>
+                    <span class="experience-date">Octubre 2023 - Presente</span>
+                    <div class="experience-description">
+                        Gestión integral de atención al cliente, brindando soporte técnico especializado y resolución 
+                        de problemas de hardware y software.
+                    </div>
+                    <div class="experience-tags">
+                        <span class="tag">Atención al Cliente</span>
+                        <span class="tag">Soporte Técnico</span>
+                        <span class="tag">Resolución de Problemas</span>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarExperiencia(1)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarExperiencia(1)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="experience-title">Marketing Digital y Desarrollo</div>
+                    <span class="experience-date">Agosto 2023 - Presente</span>
+                    <div class="experience-description">
+                        Desarrollo e implementación de estrategias de marketing digital efectivas. Creación de 
+                        contenido web optimizado y participación activa en proyectos de desarrollo full-stack.
+                    </div>
+                    <div class="experience-tags">
+                        <span class="tag">Marketing Digital</span>
+                        <span class="tag">Desarrollo Web</span>
+                        <span class="tag">SEO</span>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarExperiencia(2)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarExperiencia(2)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="experience-title">Supervisor de Operaciones - Ideal</div>
+                    <span class="experience-date">Enero 2024 - Marzo 2024</span>
+                    <div class="experience-description">
+                        Supervisión y coordinación de equipos de trabajo, optimización de procesos operativos 
+                        y gestión de recursos técnicos.
+                    </div>
+                    <div class="experience-tags">
+                        <span class="tag">Liderazgo</span>
+                        <span class="tag">Gestión de Equipos</span>
+                        <span class="tag">Optimización</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Educación -->
+        <div id="educacion" class="section-view">
+            <div class="section-header">
+                <h2>🎓 Educación</h2>
+                <div class="header-buttons">
+                    <button class="pdf-section" onclick="imprimirSeccion('educacion')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="education-card">
+                <h3>Universidad Laica Eloy Alfaro de Manabí</h3>
+                <p style="font-size: 1.3em; margin-top: 15px;">Ingeniería en Tecnologías de la Información</p>
+                <p style="margin-top: 20px;">📅 2022 - 2026 (En curso)</p>
+                <p style="margin-top: 10px;">🏆 Promedio: Excelente</p>
+            </div>
+        </div>
+
+        <!-- Cursos Realizados -->
+        <div id="cursos" class="section-view">
+            <div class="section-header">
+                <h2>📚 Cursos Realizados</h2>
+                <div class="header-buttons">
+                    <button class="add-button" onclick="abrirModalCurso()">➕ Agregar</button>
+                    <button class="pdf-section" onclick="imprimirSeccion('cursos')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="cursos-list" id="cursosList">
+                <div class="curso-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarCurso(0)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarCurso(0)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="curso-title">Python para Data Science</div>
+                    <span class="experience-date">2023</span>
+                    <div class="curso-description">
+                        Curso completo de Python aplicado a ciencia de datos, incluyendo NumPy, Pandas y visualización de datos.
+                    </div>
+                    <div class="experience-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Science</span>
+                        <span class="tag">40 horas</span>
+                    </div>
+                </div>
+
+                <div class="curso-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarCurso(1)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarCurso(1)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="curso-title">Desarrollo Web con Django</div>
+                    <span class="experience-date">2024</span>
+                    <div class="curso-description">
+                        Desarrollo de aplicaciones web completas con Django, incluyendo autenticación, bases de datos y deployment.
+                    </div>
+                    <div class="experience-tags">
+                        <span class="tag">Django</span>
+                        <span class="tag">Web Development</span>
+                        <span class="tag">60 horas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reconocimientos -->
+        <div id="reconocimientos" class="section-view">
+            <div class="section-header">
+                <h2>🏆 Reconocimientos</h2>
+                <div class="header-buttons">
+                    <button class="add-button" onclick="abrirModalReconocimiento()">➕ Agregar</button>
+                    <button class="pdf-section" onclick="imprimirSeccion('reconocimientos')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="reconocimientos-list" id="reconocimientosList">
+                <div class="reconocimiento-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarReconocimiento(0)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarReconocimiento(0)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="reconocimiento-title">🥇 Mejor Proyecto de Desarrollo Web</div>
+                    <span class="experience-date">2024</span>
+                    <div class="reconocimiento-description">
+                        Reconocimiento al mejor proyecto de desarrollo web en el Bootcamp de la Universidad ULEAM.
+                    </div>
+                </div>
+
+                <div class="reconocimiento-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarReconocimiento(1)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarReconocimiento(1)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="reconocimiento-title">⭐ Estudiante Destacado</div>
+                    <span class="experience-date">2023</span>
+                    <div class="reconocimiento-description">
+                        Reconocido como estudiante destacado en el área de programación durante el semestre 2023-2.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servicios Técnicos (Venta de Garaje) -->
+        <div id="garage" class="section-view">
+            <div class="section-header">
+                <h2>🔧 Servicios Técnicos</h2>
+                <div class="header-buttons">
+                    <button class="pdf-section" onclick="imprimirSeccion('garage')">📄 Imprimir PDF</button>
+                    <button class="close-section" onclick="cerrarSeccion()">✕ Cerrar</button>
+                </div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">💻</div>
+                    <div class="service-content">
+                        <div class="service-title">Reparación de Computadoras</div>
+                        <div class="service-description">
+                            Diagnóstico y reparación de computadoras de escritorio. Actualización de componentes, 
+                            limpieza interna, instalación de sistemas operativos y más.
+                        </div>
+                        <div class="service-select">
+                            <input type="checkbox" id="service-computadoras" value="Reparación de Computadoras">
+                            <label for="service-computadoras">Seleccionar este servicio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">📱</div>
+                    <div class="service-content">
+                        <div class="service-title">Reparación de Celulares</div>
+                        <div class="service-description">
+                            Reparación de smartphones: cambio de pantallas, baterías, conectores de carga, 
+                            actualización de software y solución de problemas.
+                        </div>
+                        <div class="service-select">
+                            <input type="checkbox" id="service-celulares" value="Reparación de Celulares">
+                            <label for="service-celulares">Seleccionar este servicio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">💼</div>
+                    <div class="service-content">
+                        <div class="service-title">Reparación de Laptops</div>
+                        <div class="service-description">
+                            Servicio técnico especializado para laptops: cambio de teclados, pantallas, 
+                            discos duros, limpieza de ventiladores y optimización.
+                        </div>
+                        <div class="service-select">
+                            <input type="checkbox" id="service-laptops" value="Reparación de Laptops">
+                            <label for="service-laptops">Seleccionar este servicio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image">🖨️</div>
+                    <div class="service-content">
+                        <div class="service-title">Reparación de Impresoras</div>
+                        <div class="service-description">
+                            Mantenimiento y reparación de impresoras: limpieza de cabezales, 
+                            reemplazo de cartuchos, solución de atascos y configuración.
+                        </div>
+                        <div class="service-select">
+                            <input type="checkbox" id="service-impresoras" value="Reparación de Impresoras">
+                            <label for="service-impresoras">Seleccionar este servicio</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-solicitar" onclick="abrirModalServicio()">
+                    📧 Solicitar Servicio Seleccionado
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Experiencia -->
+    <div id="modalExperiencia" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="tituloModalExp">Agregar Experiencia Laboral</div>
+            <div class="form-group">
+                <label>Título del Puesto:</label>
+                <input type="text" id="expTitulo" placeholder="Ej: Desarrollador Web">
+            </div>
+            <div class="form-group">
+                <label>Fecha de Inicio:</label>
+                <input type="month" id="expFechaInicio">
+            </div>
+            <div class="form-group">
+                <label>Fecha de Fin:</label>
+                <input type="month" id="expFechaFin">
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="expActual" onchange="toggleFechaFinExp()">
+                    Trabajo Actual
+                </label>
+            </div>
+            <div class="form-group">
+                <label>Descripción:</label>
+                <textarea id="expDescripcion" placeholder="Describe tus responsabilidades y logros..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Habilidades/Tags (separadas por coma):</label>
+                <input type="text" id="expTags" placeholder="Ej: JavaScript, React, Node.js">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="cerrarModalExperiencia()">Cancelar</button>
+                <button class="btn btn-save" onclick="guardarExperiencia()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Curso -->
+    <div id="modalCurso" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="tituloModalCurso">Agregar Curso</div>
+            <div class="form-group">
+                <label>Nombre del Curso:</label>
+                <input type="text" id="cursoTitulo" placeholder="Ej: Python Avanzado">
+            </div>
+            <div class="form-group">
+                <label>Año:</label>
+                <input type="number" id="cursoAnio" placeholder="2024" min="2000" max="2100">
+            </div>
+            <div class="form-group">
+                <label>Descripción:</label>
+                <textarea id="cursoDescripcion" placeholder="Describe lo que aprendiste..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Tags (separados por coma):</label>
+                <input type="text" id="cursoTags" placeholder="Ej: Python, 40 horas, Certificado">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="cerrarModalCurso()">Cancelar</button>
+                <button class="btn btn-save" onclick="guardarCurso()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Reconocimiento -->
+    <div id="modalReconocimiento" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="tituloModalRecon">Agregar Reconocimiento</div>
+            <div class="form-group">
+                <label>Título del Reconocimiento:</label>
+                <input type="text" id="reconTitulo" placeholder="Ej: 🏆 Mejor Desarrollador del Año">
+            </div>
+            <div class="form-group">
+                <label>Año:</label>
+                <input type="number" id="reconAnio" placeholder="2024" min="2000" max="2100">
+            </div>
+            <div class="form-group">
+                <label>Descripción:</label>
+                <textarea id="reconDescripcion" placeholder="Describe el reconocimiento..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="cerrarModalReconocimiento()">Cancelar</button>
+                <button class="btn btn-save" onclick="guardarReconocimiento()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Solicitud de Servicio -->
+    <div id="modalServicio" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">📧 Solicitar Servicio Técnico</div>
+            
+            <div class="info-box">
+                <p>📱 <strong>Notificación Directa</strong><br>
+                Tu solicitud se enviará directamente a WhatsApp o Email según prefieras. 
+                Recibirás una respuesta lo más pronto posible.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Tu Nombre Completo:</label>
+                <input type="text" id="clienteNombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tu Correo Electrónico:</label>
+                <input type="email" id="clienteEmail" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tu Teléfono / WhatsApp:</label>
+                <input type="tel" id="clienteTelefono" placeholder="0987654321" required>
+            </div>
+
+            <div class="form-group">
+                <label>Método de Contacto Preferido:</label>
+                <select id="metodoContacto">
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">Email</option>
+                    <option value="ambos">Ambos</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Servicios Seleccionados:</label>
+                <div id="serviciosSeleccionados" style="background: #f8f9ff; padding: 15px; border-radius: 10px; margin-bottom: 10px;">
+                    <p style="color: #666;">Ningún servicio seleccionado</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Describe el Problema o Servicio Necesario:</label>
+                <textarea id="servicioMotivo" placeholder="Ej: Mi laptop no enciende, hace un ruido extraño..." required></textarea>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn btn-cancel" onclick="cerrarModalServicio()">Cancelar</button>
+                <button class="btn btn-save" onclick="enviarSolicitudServicio()">Enviar Solicitud</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let experienciaEditando = -1;
+        let cursoEditando = -1;
+        let reconocimientoEditando = -1;
+
+        // ==================== FUNCIONES GENERALES ====================
+        
+        function mostrarSeccion(seccion) {
+            document.getElementById('mainMenu').style.display = 'none';
+            document.querySelectorAll('.section-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(seccion).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function cerrarSeccion() {
+            document.querySelectorAll('.section-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById('mainMenu').style.display = 'grid';
+            window.scrollTo(0, 0);
+        }
+
+        function formatearFecha(fechaMes) {
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                          'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            const [anio, mes] = fechaMes.split('-');
+            return `${meses[parseInt(mes) - 1]} ${anio}`;
+        }
+
+        function actualizarIndices() {
+            document.querySelectorAll('#experienceList .experience-card').forEach((card, index) => {
+                card.querySelector('.btn-edit').setAttribute('onclick', `editarExperiencia(${index})`);
+                card.querySelector('.btn-delete').setAttribute('onclick', `eliminarExperiencia(${index})`);
+            });
+
+            document.querySelectorAll('#cursosList .curso-card').forEach((card, index) => {
+                card.querySelector('.btn-edit').setAttribute('onclick', `editarCurso(${index})`);
+                card.querySelector('.btn-delete').setAttribute('onclick', `eliminarCurso(${index})`);
+            });
+
+            document.querySelectorAll('#reconocimientosList .reconocimiento-card').forEach((card, index) => {
+                card.querySelector('.btn-edit').setAttribute('onclick', `editarReconocimiento(${index})`);
+                card.querySelector('.btn-delete').setAttribute('onclick', `eliminarReconocimiento(${index})`);
+            });
+        }
+
+        // ==================== IMPRIMIR CV COMPLETO ====================
+        
+        function imprimirCVCompleto() {
+            const ventanaPDF = window.open('', '_blank');
+            
+            const perfilHTML = document.querySelector('#perfil .profile-content').innerHTML;
+            const habilidadesHTML = generarHTMLHabilidades();
+            const experienciaHTML = document.getElementById('experienceList').innerHTML;
+            const educacionHTML = document.querySelector('#educacion .education-card').outerHTML;
+            const cursosHTML = document.getElementById('cursosList').innerHTML;
+            const reconocimientosHTML = document.getElementById('reconocimientosList').innerHTML;
+            const serviciosHTML = generarHTMLServicios();
+
+            ventanaPDF.document.write(`
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>CV Completo - Eivy René Romero Mendoza</title>
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            padding: 40px;
+                            background: white;
+                            color: #4A4A4A;
+                        }
+                        .header {
+                            text-align: center;
+                            padding: 30px;
+                            background: linear-gradient(135deg, #B4D4FF 0%, #D4B4FF 100%);
+                            border-radius: 15px;
+                            margin-bottom: 30px;
+                        }
+                        h1 { font-size: 2.5em; margin-bottom: 10px; }
+                        .section-title {
+                            font-size: 2em;
+                            color: #667eea;
+                            margin: 30px 0 20px 0;
+                            border-bottom: 3px solid #D4B4FF;
+                            padding-bottom: 10px;
+                            page-break-before: auto;
+                        }
+                        .experience-card, .curso-card, .reconocimiento-card, .service-card {
+                            margin-bottom: 20px;
+                            padding: 20px;
+                            background: #f8f9ff;
+                            border-radius: 10px;
+                            border-left: 4px solid #B4FFD4;
+                            page-break-inside: avoid;
+                        }
+                        .experience-title, .curso-title, .reconocimiento-title, .service-title {
+                            font-size: 1.3em;
+                            font-weight: bold;
+                            margin-bottom: 8px;
+                        }
+                        .experience-date {
+                            color: #667eea;
+                            font-weight: bold;
+                            margin-bottom: 10px;
+                            display: block;
+                        }
+                        .tag {
+                            display: inline-block;
+                            background: #D4B4FF;
+                            padding: 5px 12px;
+                            border-radius: 15px;
+                            margin-right: 8px;
+                            margin-top: 5px;
+                            font-size: 0.9em;
+                        }
+                        .card-actions, .btn-edit, .btn-delete, .service-select, .service-image {
+                            display: none !important;
+                        }
+                        .skill-item {
+                            margin-bottom: 15px;
+                            padding: 15px;
+                            background: #f8f9ff;
+                            border-radius: 10px;
+                        }
+                        .skill-name {
+                            font-weight: bold;
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 8px;
+                        }
+                        .profile-content {
+                            background: linear-gradient(135deg, #B4D4FF, #D4B4FF);
+                            padding: 20px;
+                            border-radius: 10px;
+                            line-height: 1.8;
+                        }
+                        .education-card {
+                            background: linear-gradient(135deg, #FFF4B4, #FFD4B4);
+                            padding: 30px;
+                            border-radius: 15px;
+                            text-align: center;
+                        }
+                        .print-button {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #FFB4D4;
+                            color: #4A4A4A;
+                            padding: 12px 24px;
+                            border-radius: 50px;
+                            border: none;
+                            cursor: pointer;
+                            font-weight: bold;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                            z-index: 1000;
+                        }
+                        @media print {
+                            body { padding: 20px; }
+                            .print-button { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <button onclick="window.print()" class="print-button">
+                        🖨️ Imprimir / Guardar PDF
+                    </button>
+                    <div class="header">
+                        <h1>Eivy René Romero Mendoza</h1>
+                        <p>Desarrollador Full Stack | Ingeniero en TI</p>
+                        <p style="margin-top: 15px;">📧 eivyromero.26@gmail.com | 📱 0987213633 | 📍 Manta, Ecuador</p>
+                    </div>
+
+                    <h2 class="section-title">👤 Perfil Profesional</h2>
+                    ${perfilHTML}
+
+                    <h2 class="section-title">💻 Habilidades Técnicas</h2>
+                    ${habilidadesHTML}
+
+                    <h2 class="section-title">🚀 Experiencia Laboral</h2>
+                    ${experienciaHTML}
+
+                    <h2 class="section-title">🎓 Educación</h2>
+                    ${educacionHTML}
+
+                    <h2 class="section-title">📚 Cursos Realizados</h2>
+                    ${cursosHTML}
+
+                    <h2 class="section-title">🏆 Reconocimientos</h2>
+                    ${reconocimientosHTML}
+
+                    <h2 class="section-title">🔧 Servicios Técnicos</h2>
+                    ${serviciosHTML}
+                </body>
+                </html>
+            `);
+            ventanaPDF.document.close();
+        }
+
+        // ==================== IMPRIMIR SECCIÓN EN PDF ====================
+        
+        function imprimirSeccion(seccion) {
+            const ventanaPDF = window.open('', '_blank');
+            let contenido = '';
+            let titulo = '';
+
+            switch(seccion) {
+                case 'perfil':
+                    titulo = '👤 Perfil Profesional';
+                    contenido = document.querySelector('#perfil .profile-content').innerHTML;
+                    break;
+                case 'habilidades':
+                    titulo = '💻 Habilidades Técnicas';
+                    contenido = generarHTMLHabilidades();
+                    break;
+                case 'experiencia':
+                    titulo = '🚀 Experiencia Laboral';
+                    contenido = document.getElementById('experienceList').innerHTML;
+                    break;
+                case 'educacion':
+                    titulo = '🎓 Educación';
+                    contenido = document.querySelector('#educacion .education-card').outerHTML;
+                    break;
+                case 'cursos':
+                    titulo = '📚 Cursos Realizados';
+                    contenido = document.getElementById('cursosList').innerHTML;
+                    break;
+                case 'reconocimientos':
+                    titulo = '🏆 Reconocimientos';
+                    contenido = document.getElementById('reconocimientosList').innerHTML;
+                    break;
+                case 'garage':
+                    titulo = '🔧 Servicios Técnicos';
+                    contenido = generarHTMLServicios();
+                    break;
+            }
+
+            ventanaPDF.document.write(`
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>CV - ${titulo}</title>
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            padding: 40px;
+                            background: white;
+                            color: #4A4A4A;
+                        }
+                        .header {
+                            text-align: center;
+                            padding: 30px;
+                            background: linear-gradient(135deg, #B4D4FF 0%, #D4B4FF 100%);
+                            border-radius: 15px;
+                            margin-bottom: 30px;
+                        }
+                        h1 { font-size: 2.5em; margin-bottom: 10px; }
+                        .section-title {
+                            font-size: 2em;
+                            color: #667eea;
+                            margin-bottom: 20px;
+                            border-bottom: 3px solid #D4B4FF;
+                            padding-bottom: 10px;
+                        }
+                        .experience-card, .curso-card, .reconocimiento-card, .service-card {
+                            margin-bottom: 20px;
+                            padding: 20px;
+                            background: #f8f9ff;
+                            border-radius: 10px;
+                            border-left: 4px solid #B4FFD4;
+                            page-break-inside: avoid;
+                        }
+                        .experience-title, .curso-title, .reconocimiento-title, .service-title {
+                            font-size: 1.3em;
+                            font-weight: bold;
+                            margin-bottom: 8px;
+                        }
+                        .experience-date {
+                            color: #667eea;
+                            font-weight: bold;
+                            margin-bottom: 10px;
+                            display: block;
+                        }
+                        .tag {
+                            display: inline-block;
+                            background: #D4B4FF;
+                            padding: 5px 12px;
+                            border-radius: 15px;
+                            margin-right: 8px;
+                            margin-top: 5px;
+                            font-size: 0.9em;
+                        }
+                        .card-actions, .btn-edit, .btn-delete, .service-select, .service-image {
+                            display: none !important;
+                        }
+                        .skill-item {
+                            margin-bottom: 15px;
+                            padding: 15px;
+                            background: #f8f9ff;
+                            border-radius: 10px;
+                        }
+                        .skill-name {
+                            font-weight: bold;
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 8px;
+                        }
+                        .profile-content {
+                            background: linear-gradient(135deg, #B4D4FF, #D4B4FF);
+                            padding: 20px;
+                            border-radius: 10px;
+                            line-height: 1.8;
+                        }
+                        .education-card {
+                            background: linear-gradient(135deg, #FFF4B4, #FFD4B4);
+                            padding: 30px;
+                            border-radius: 15px;
+                            text-align: center;
+                        }
+                        .print-button {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: #FFB4D4;
+                            color: #4A4A4A;
+                            padding: 12px 24px;
+                            border-radius: 50px;
+                            border: none;
+                            cursor: pointer;
+                            font-weight: bold;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                            z-index: 1000;
+                        }
+                        @media print {
+                            body { padding: 20px; }
+                            .print-button { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <button onclick="window.print()" class="print-button">
+                        🖨️ Imprimir / Guardar PDF
+                    </button>
+                    <div class="header">
+                        <h1>Eivy René Romero Mendoza</h1>
+                        <p>Desarrollador Full Stack | Ingeniero en TI</p>
+                        <p style="margin-top: 15px;">📧 eivyromero.26@gmail.com | 📱 0987213633 | 📍 Manta, Ecuador</p>
+                    </div>
+                    <h2 class="section-title">${titulo}</h2>
+                    ${contenido}
+                </body>
+                </html>
+            `);
+            ventanaPDF.document.close();
+        }
+
+        function generarHTMLHabilidades() {
+            const skills = document.querySelectorAll('#habilidades .skill-item');
+            let html = '';
+            skills.forEach(skill => {
+                const nombre = skill.querySelector('.skill-name span:first-child').textContent;
+                const porcentaje = skill.querySelector('.skill-name span:last-child').textContent;
+                html += `<div class="skill-item"><div class="skill-name"><span>${nombre}</span><span>${porcentaje}</span></div></div>`;
+            });
+            return html;
+        }
+
+        function generarHTMLServicios() {
+            const servicios = document.querySelectorAll('#garage .service-card');
+            let html = '';
+            servicios.forEach(servicio => {
+                const titulo = servicio.querySelector('.service-title').textContent;
+                const descripcion = servicio.querySelector('.service-description').textContent;
+                html += `
+                    <div class="service-card">
+                        <div class="service-title">${titulo}</div>
+                        <div class="service-description">${descripcion}</div>
+                    </div>
+                `;
+            });
+            return html;
+        }
+
+        // ==================== EXPERIENCIA ====================
+        
+        function abrirModalExperiencia() {
+            experienciaEditando = -1;
+            document.getElementById('tituloModalExp').textContent = 'Agregar Experiencia Laboral';
+            document.getElementById('expTitulo').value = '';
+            document.getElementById('expFechaInicio').value = '';
+            document.getElementById('expFechaFin').value = '';
+            document.getElementById('expActual').checked = false;
+            document.getElementById('expDescripcion').value = '';
+            document.getElementById('expTags').value = '';
+            document.getElementById('expFechaFin').disabled = false;
+            document.getElementById('modalExperiencia').classList.add('active');
+        }
+
+        function cerrarModalExperiencia() {
+            document.getElementById('modalExperiencia').classList.remove('active');
+        }
+
+        function toggleFechaFinExp() {
+            const checkbox = document.getElementById('expActual');
+            const fechaFin = document.getElementById('expFechaFin');
+            fechaFin.disabled = checkbox.checked;
+            if (checkbox.checked) fechaFin.value = '';
+        }
+
+        function editarExperiencia(index) {
+            experienciaEditando = index;
+            const cards = document.querySelectorAll('#experienceList .experience-card');
+            const card = cards[index];
+            
+            document.getElementById('tituloModalExp').textContent = 'Editar Experiencia Laboral';
+            document.getElementById('expTitulo').value = card.querySelector('.experience-title').textContent;
+            
+            const fechaTexto = card.querySelector('.experience-date').textContent;
+            const esActual = fechaTexto.includes('Presente');
+            document.getElementById('expActual').checked = esActual;
+            
+            const partesFecha = fechaTexto.split(' - ');
+            if (partesFecha.length > 0) {
+                const meses = {'Enero':'01','Febrero':'02','Marzo':'03','Abril':'04','Mayo':'05','Junio':'06',
+                              'Julio':'07','Agosto':'08','Septiembre':'09','Octubre':'10','Noviembre':'11','Diciembre':'12'};
+                const [mesInicio, anioInicio] = partesFecha[0].trim().split(' ');
+                if (meses[mesInicio] && anioInicio) {
+                    document.getElementById('expFechaInicio').value = `${anioInicio}-${meses[mesInicio]}`;
+                }
+                
+                if (partesFecha.length > 1 && partesFecha[1].trim() !== 'Presente') {
+                    const [mesFin, anioFin] = partesFecha[1].trim().split(' ');
+                    if (meses[mesFin] && anioFin) {
+                        document.getElementById('expFechaFin').value = `${anioFin}-${meses[mesFin]}`;
+                    }
+                }
+            }
+            
+            document.getElementById('expDescripcion').value = card.querySelector('.experience-description').textContent.trim();
+            
+            const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent).join(', ');
+            document.getElementById('expTags').value = tags;
+            
+            document.getElementById('expFechaFin').disabled = esActual;
+            document.getElementById('modalExperiencia').classList.add('active');
+        }
+
+        function eliminarExperiencia(index) {
+            if (confirm('¿Estás seguro de eliminar esta experiencia?')) {
+                const cards = document.querySelectorAll('#experienceList .experience-card');
+                cards[index].remove();
+                actualizarIndices();
+            }
+        }
+
+        function guardarExperiencia() {
+            const titulo = document.getElementById('expTitulo').value;
+            const fechaInicio = document.getElementById('expFechaInicio').value;
+            const fechaFin = document.getElementById('expFechaFin').value;
+            const actual = document.getElementById('expActual').checked;
+            const descripcion = document.getElementById('expDescripcion').value;
+            const tagsTexto = document.getElementById('expTags').value;
+
+            if (!titulo || !fechaInicio || (!actual && !fechaFin) || !descripcion) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            let fechaFormateada = formatearFecha(fechaInicio);
+            if (actual) {
+                fechaFormateada += ' - Presente';
+            } else {
+                fechaFormateada += ' - ' + formatearFecha(fechaFin);
+            }
+
+            const tags = tagsTexto.split(',').map(t => t.trim()).filter(t => t);
+            const tagsHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+            const nuevoHTML = `
+                <div class="experience-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarExperiencia(0)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarExperiencia(0)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="experience-title">${titulo}</div>
+                    <span class="experience-date">${fechaFormateada}</span>
+                    <div class="experience-description">${descripcion}</div>
+                    <div class="experience-tags">${tagsHTML}</div>
+                </div>
+            `;
+
+            if (experienciaEditando >= 0) {
+                const cards = document.querySelectorAll('#experienceList .experience-card');
+                cards[experienciaEditando].outerHTML = nuevoHTML;
+            } else {
+                document.getElementById('experienceList').insertAdjacentHTML('beforeend', nuevoHTML);
+            }
+
+            cerrarModalExperiencia();
+            actualizarIndices();
+        }
+
+        // ==================== CURSOS ====================
+        
+        function abrirModalCurso() {
+            cursoEditando = -1;
+            document.getElementById('tituloModalCurso').textContent = 'Agregar Curso';
+            document.getElementById('cursoTitulo').value = '';
+            document.getElementById('cursoAnio').value = '';
+            document.getElementById('cursoDescripcion').value = '';
+            document.getElementById('cursoTags').value = '';
+            document.getElementById('modalCurso').classList.add('active');
+        }
+
+        function cerrarModalCurso() {
+            document.getElementById('modalCurso').classList.remove('active');
+        }
+
+        function editarCurso(index) {
+            cursoEditando = index;
+            const cards = document.querySelectorAll('#cursosList .curso-card');
+            const card = cards[index];
+            
+            document.getElementById('tituloModalCurso').textContent = 'Editar Curso';
+            document.getElementById('cursoTitulo').value = card.querySelector('.curso-title').textContent;
+            document.getElementById('cursoAnio').value = card.querySelector('.experience-date').textContent;
+            document.getElementById('cursoDescripcion').value = card.querySelector('.curso-description').textContent.trim();
+            
+            const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent).join(', ');
+            document.getElementById('cursoTags').value = tags;
+            
+            document.getElementById('modalCurso').classList.add('active');
+        }
+
+        function eliminarCurso(index) {
+            if (confirm('¿Estás seguro de eliminar este curso?')) {
+                const cards = document.querySelectorAll('#cursosList .curso-card');
+                cards[index].remove();
+                actualizarIndices();
+            }
+        }
+
+        function guardarCurso() {
+            const titulo = document.getElementById('cursoTitulo').value;
+            const anio = document.getElementById('cursoAnio').value;
+            const descripcion = document.getElementById('cursoDescripcion').value;
+            const tagsTexto = document.getElementById('cursoTags').value;
+
+            if (!titulo || !anio || !descripcion) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            const tags = tagsTexto.split(',').map(t => t.trim()).filter(t => t);
+            const tagsHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+            const nuevoHTML = `
+                <div class="curso-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarCurso(0)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarCurso(0)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="curso-title">${titulo}</div>
+                    <span class="experience-date">${anio}</span>
+                    <div class="curso-description">${descripcion}</div>
+                    <div class="experience-tags">${tagsHTML}</div>
+                </div>
+            `;
+
+            if (cursoEditando >= 0) {
+                const cards = document.querySelectorAll('#cursosList .curso-card');
+                cards[cursoEditando].outerHTML = nuevoHTML;
+            } else {
+                document.getElementById('cursosList').insertAdjacentHTML('beforeend', nuevoHTML);
+            }
+
+            cerrarModalCurso();
+            actualizarIndices();
+        }
+
+        // ==================== RECONOCIMIENTOS ====================
+        
+        function abrirModalReconocimiento() {
+            reconocimientoEditando = -1;
+            document.getElementById('tituloModalRecon').textContent = 'Agregar Reconocimiento';
+            document.getElementById('reconTitulo').value = '';
+            document.getElementById('reconAnio').value = '';
+            document.getElementById('reconDescripcion').value = '';
+            document.getElementById('modalReconocimiento').classList.add('active');
+        }
+
+        function cerrarModalReconocimiento() {
+            document.getElementById('modalReconocimiento').classList.remove('active');
+        }
+
+        function editarReconocimiento(index) {
+            reconocimientoEditando = index;
+            const cards = document.querySelectorAll('#reconocimientosList .reconocimiento-card');
+            const card = cards[index];
+            
+            document.getElementById('tituloModalRecon').textContent = 'Editar Reconocimiento';
+            document.getElementById('reconTitulo').value = card.querySelector('.reconocimiento-title').textContent;
+            document.getElementById('reconAnio').value = card.querySelector('.experience-date').textContent;
+            document.getElementById('reconDescripcion').value = card.querySelector('.reconocimiento-description').textContent.trim();
+            
+            document.getElementById('modalReconocimiento').classList.add('active');
+        }
+
+        function eliminarReconocimiento(index) {
+            if (confirm('¿Estás seguro de eliminar este reconocimiento?')) {
+                const cards = document.querySelectorAll('#reconocimientosList .reconocimiento-card');
+                cards[index].remove();
+                actualizarIndices();
+            }
+        }
+
+        function guardarReconocimiento() {
+            const titulo = document.getElementById('reconTitulo').value;
+            const anio = document.getElementById('reconAnio').value;
+            const descripcion = document.getElementById('reconDescripcion').value;
+
+            if (!titulo || !anio || !descripcion) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            const nuevoHTML = `
+                <div class="reconocimiento-card">
+                    <div class="card-actions">
+                        <button class="btn-edit" onclick="editarReconocimiento(0)" title="Editar">✏️</button>
+                        <button class="btn-delete" onclick="eliminarReconocimiento(0)" title="Eliminar">🗑️</button>
+                    </div>
+                    <div class="reconocimiento-title">${titulo}</div>
+                    <span class="experience-date">${anio}</span>
+                    <div class="reconocimiento-description">${descripcion}</div>
+                </div>
+            `;
+
+            if (reconocimientoEditando >= 0) {
+                const cards = document.querySelectorAll('#reconocimientosList .reconocimiento-card');
+                cards[reconocimientoEditando].outerHTML = nuevoHTML;
+            } else {
+                document.getElementById('reconocimientosList').insertAdjacentHTML('beforeend', nuevoHTML);
+            }
+
+            cerrarModalReconocimiento();
+            actualizarIndices();
+        }
+
+        // ==================== SERVICIOS TÉCNICOS ====================
+        
+        function abrirModalServicio() {
+            const serviciosSeleccionados = [];
+            const checkboxes = document.querySelectorAll('#garage input[type="checkbox"]:checked');
+            
+            if (checkboxes.length === 0) {
+                alert('Por favor selecciona al menos un servicio antes de solicitar');
+                return;
+            }
+
+            checkboxes.forEach(checkbox => {
+                serviciosSeleccionados.push(checkbox.value);
+            });
+
+            const contenedorServicios = document.getElementById('serviciosSeleccionados');
+            contenedorServicios.innerHTML = serviciosSeleccionados.map(servicio => 
+                `<p style="color: #4A4A4A; margin-bottom: 5px;">✓ ${servicio}</p>`
+            ).join('');
+
+            document.getElementById('modalServicio').classList.add('active');
+        }
+
+        function cerrarModalServicio() {
+            document.getElementById('modalServicio').classList.remove('active');
+            document.getElementById('clienteNombre').value = '';
+            document.getElementById('clienteEmail').value = '';
+            document.getElementById('clienteTelefono').value = '';
+            document.getElementById('servicioMotivo').value = '';
+        }
+
+        function enviarSolicitudServicio() {
+            const nombre = document.getElementById('clienteNombre').value.trim();
+            const email = document.getElementById('clienteEmail').value.trim();
+            const telefono = document.getElementById('clienteTelefono').value.trim();
+            const motivo = document.getElementById('servicioMotivo').value.trim();
+            const metodo = document.getElementById('metodoContacto').value;
+
+            if (!nombre || !email || !telefono || !motivo) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            // Validar formato de email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor ingresa un correo electrónico válido');
+                return;
+            }
+
+            // Obtener servicios seleccionados
+            const serviciosSeleccionados = [];
+            document.querySelectorAll('#garage input[type="checkbox"]:checked').forEach(checkbox => {
+                serviciosSeleccionados.push(checkbox.value);
+            });
+
+            // Crear mensaje
+            const mensaje = `¡Hola! Soy *${nombre}*
+
+📱 *Solicitud de Servicio Técnico*
+
+*Servicios solicitados:*
+${serviciosSeleccionados.map(s => `• ${s}`).join('\n')}
+
+*Descripción del problema:*
+${motivo}
+
+*Datos de contacto:*
+📧 Email: ${email}
+📞 Teléfono: ${telefono}
+
+*Método de contacto preferido:* ${metodo === 'whatsapp' ? 'WhatsApp' : metodo === 'email' ? 'Email' : 'Ambos'}`;
+
+            const mensajeURL = encodeURIComponent(mensaje);
+
+            // Enviar según método seleccionado
+            if (metodo === 'whatsapp' || metodo === 'ambos') {
+                // Tu número de WhatsApp (reemplaza con tu número real)
+                const numeroWhatsApp = '593987213633'; // Formato: código país + número sin espacios ni símbolos
+                const whatsappURL = `https://wa.me/${numeroWhatsApp}?text=${mensajeURL}`;
+                window.open(whatsappURL, '_blank');
+            }
+
+            if (metodo === 'email' || metodo === 'ambos') {
+                const asunto = `Solicitud de Servicio Técnico - ${nombre}`;
+                const cuerpoEmail = mensaje.replace(/\*/g, '').replace(/\n/g, '%0D%0A');
+                const mailtoURL = `mailto:eivyromero.26@gmail.com?subject=${encodeURIComponent(asunto)}&body=${cuerpoEmail}`;
+                window.location.href = mailtoURL;
+            }
+
+            alert('¡Solicitud enviada! Te contactaremos pronto.');
+            
+            cerrarModalServicio();
+            document.querySelectorAll('#garage input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+
+        // Inicializar índices al cargar
+        window.addEventListener('DOMContentLoaded', actualizarIndices);
+    </script>
+</body>
+</html>
