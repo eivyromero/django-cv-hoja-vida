@@ -1,3 +1,4 @@
+<div id="experiences-list"></div>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -80,7 +81,7 @@
             transition: all 0.3s;
             display: none;
         }
-        
+
         .btn-change-photo.admin-visible {
             display: inline-block;
         }
@@ -159,7 +160,7 @@
         }
 
         .btn-admin {
-            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple)) !important;
+            background: linear-gradient(135deg, #81C784, #4CAF50) !important;
             font-size: 1.05em;
         }
 
@@ -682,9 +683,6 @@
             <button class="back-button btn-download-full" onclick="abrirModalSeleccionPDF()">
                 📄 Descargar CV Completo
             </button>
-            <button id="btnAdmin" class="back-button btn-admin" onclick="abrirModalLogin()">
-                🔐 Admin
-            </button>
             <button id="btnLogout" class="back-button btn-logout" onclick="cerrarSesion()" style="display: none;">
                 🚪 Cerrar Sesión
             </button>
@@ -696,10 +694,14 @@
             </div>
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
             <button class="btn-change-photo" id="btnChangePhoto" onclick="changePhoto()" style="display: none;">Cambiar Foto</button>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div style="background: rgba(255,255,255,0.25); padding: 18px; border-radius: 12px; backdrop-filter: blur(10px);">
+                </div>
+            </div>
             <h1>Eivy René Romero Mendoza</h1>
             <div class="subtitle">Desarrollador Full Stack | Ingeniero en TI</div>
             <div class="contact-info">
-                <div class="contact-item">📧 eivyromero.26@gmail.com</a></div>
+                <div class="contact-item">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8feae6f9f6fde0e2eafde0a1bdb9cfe8e2eee6e3a1ece0e2">[email&#160;protected]</a></a></div>
                 <div class="contact-item">📱 0987213633</div>
                 <div class="contact-item">📍 Manta, Ecuador</div>
             </div>
@@ -1068,37 +1070,37 @@
             <div class="info-box">
                 <p>Selecciona las secciones que deseas incluir en tu CV descargable.</p>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-perfil" value="perfil" checked>
                 <label for="pdf-perfil">👤 Perfil Profesional</label>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-habilidades" value="habilidades" checked>
                 <label for="pdf-habilidades">💻 Habilidades Técnicas</label>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-experiencia" value="experiencia" checked>
                 <label for="pdf-experiencia">🚀 Experiencia Laboral</label>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-educacion" value="educacion" checked>
                 <label for="pdf-educacion">🎓 Educación</label>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-cursos" value="cursos" checked>
                 <label for="pdf-cursos">📚 Cursos Realizados</label>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-reconocimientos" value="reconocimientos" checked>
                 <label for="pdf-reconocimientos">🏆 Reconocimientos</label>
             </div>
-            
+
             <div class="pdf-section-checkbox">
                 <input type="checkbox" id="pdf-garage" value="garage">
                 <label for="pdf-garage">🔧 Servicios Técnicos</label>
@@ -1202,7 +1204,7 @@
     <div id="modalServicio" class="modal">
         <div class="modal-content">
             <div class="modal-header">📧 Solicitar Servicio Técnico</div>
-            
+
             <div class="info-box">
                 <p>📱 <strong>Notificación Directa</strong><br>
                 Tu solicitud se enviará directamente a WhatsApp o Email según prefieras. 
@@ -1258,8 +1260,78 @@
         let reconocimientoEditando = -1;
         let isAdmin = false;
 
+        // ==================== INFORMACIÓN PERSONAL ====================
+        let infoPersonal = { fechaNacimiento: '', genero: '' };
+
+        function calcularEdad(fechaNac) {
+            if (!fechaNac) return null;
+            const hoy = new Date();
+            const nacimiento = new Date(fechaNac);
+            let edad = hoy.getFullYear() - nacimiento.getFullYear();
+            const mes = hoy.getMonth() - nacimiento.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) edad--;
+            return edad >= 0 ? edad : 0;
+        }
+
+        function abrirModalInfoPersonal() {
+            const inputFecha = document.getElementById('inputFechaNacimiento');
+            if (inputFecha) {
+                inputFecha.max = new Date().toISOString().split('T')[0];
+                inputFecha.value = infoPersonal.fechaNacimiento || '';
+            }
+            const inputGenero = document.getElementById('inputGenero');
+            if (inputGenero) inputGenero.value = infoPersonal.genero || '';
+            const modal = document.getElementById('modalInfoPersonal');
+            if (modal) modal.classList.add('active');
+        }
+
+        function cerrarModalInfoPersonal() {
+            document.getElementById('modalInfoPersonal').classList.remove('active');
+        }
+
+        function guardarInfoPersonal() {
+            infoPersonal.fechaNacimiento = document.getElementById('inputFechaNacimiento').value;
+            infoPersonal.genero = document.getElementById('inputGenero').value;
+            localStorage.setItem('infoPersonal', JSON.stringify(infoPersonal));
+            actualizarDisplayInfoPersonal();
+            cerrarModalInfoPersonal();
+            alert('✅ Información guardada correctamente');
+        }
+
+        function actualizarDisplayInfoPersonal() {
+            const edad = calcularEdad(infoPersonal.fechaNacimiento);
+            document.getElementById('displayFechaNac').textContent = infoPersonal.fechaNacimiento || 'No establecida';
+            document.getElementById('displayEdadAdmin').textContent = edad !== null ? edad + ' años' : '-';
+            document.getElementById('displayGeneroAdmin').textContent = infoPersonal.genero || 'No establecido';
+
+            if (edad !== null && edad >= 0) {
+                document.getElementById('edadPublica').style.display = 'flex';
+                document.getElementById('edadTexto').textContent = edad + ' años';
+            } else {
+                document.getElementById('edadPublica').style.display = 'none';
+            }
+
+            if (infoPersonal.genero) {
+                document.getElementById('generoPublico').style.display = 'flex';
+                document.getElementById('generoTexto').textContent = infoPersonal.genero;
+            } else {
+                document.getElementById('generoPublico').style.display = 'none';
+            }
+        }
+
+        function cargarInfoPersonal() {
+            const guardado = localStorage.getItem('infoPersonal');
+            if (guardado) {
+                try {
+                    infoPersonal = JSON.parse(guardado);
+                    actualizarDisplayInfoPersonal();
+                } catch(e) { console.error('Error cargando info:', e); }
+            }
+        }
+
+
         // ==================== SISTEMA DE AUTENTICACIÓN ====================
-        
+
         function abrirModalLogin() {
             document.getElementById('modalLogin').classList.add('active');
         }
@@ -1294,6 +1366,10 @@
         }
 
         function activarModoAdmin() {
+            // Mostrar panel de información personal
+            const panelInfo = document.getElementById('adminPersonalInfo');
+            if (panelInfo) panelInfo.style.display = 'block';
+
             // Mostrar botones de administración
             document.querySelectorAll('.admin-buttons').forEach(btn => {
                 btn.classList.add('visible');
@@ -1307,7 +1383,7 @@
             // Cambiar botones de navegación
             document.getElementById('btnAdmin').style.display = 'none';
             document.getElementById('btnLogout').style.display = 'flex';
-            
+
             // Mostrar botón de cambiar foto
             const btnChangePhoto = document.getElementById('btnChangePhoto');
             if (btnChangePhoto) {
@@ -1316,6 +1392,10 @@
         }
 
         function desactivarModoAdmin() {
+            // Ocultar panel de información personal
+            const panelInfo = document.getElementById('adminPersonalInfo');
+            if (panelInfo) panelInfo.style.display = 'none';
+
             // Ocultar botones de administración
             document.querySelectorAll('.admin-buttons').forEach(btn => {
                 btn.classList.remove('visible');
@@ -1329,7 +1409,7 @@
             // Cambiar botones de navegación
             document.getElementById('btnAdmin').style.display = 'flex';
             document.getElementById('btnLogout').style.display = 'none';
-            
+
             // Ocultar botón de cambiar foto
             const btnChangePhoto = document.getElementById('btnChangePhoto');
             if (btnChangePhoto) {
@@ -1347,7 +1427,7 @@
         });
 
         // ==================== MODAL SELECCIÓN PDF ====================
-        
+
         function abrirModalSeleccionPDF() {
             document.getElementById('modalSeleccionPDF').classList.add('active');
         }
@@ -1359,7 +1439,7 @@
         function generarPDFSeleccionado() {
             const seccionesSeleccionadas = [];
             const checkboxes = document.querySelectorAll('#modalSeleccionPDF input[type="checkbox"]:checked');
-            
+
             if (checkboxes.length === 0) {
                 alert('Por favor selecciona al menos una sección');
                 return;
@@ -1375,7 +1455,7 @@
 
         function imprimirCVPersonalizado(secciones) {
             const ventanaPDF = window.open('', '_blank');
-            
+
             let contenidoHTML = '';
 
             secciones.forEach(seccion => {
@@ -1556,7 +1636,7 @@
         }
 
         // ==================== FUNCIONES GENERALES ====================
-        
+
         function mostrarSeccion(seccion) {
             document.getElementById('mainMenu').style.display = 'none';
             document.querySelectorAll('.section-view').forEach(view => {
@@ -1582,7 +1662,7 @@
         }
 
         // ==================== CAMBIAR FOTO ====================
-        
+
         function changePhoto() {
             if (!isAdmin) {
                 alert('Debes iniciar sesión como administrador para cambiar la foto');
@@ -1633,7 +1713,7 @@
         }
 
         // ==================== IMPRIMIR SECCIÓN EN PDF ====================
-        
+
         function imprimirSeccion(seccion) {
             const ventanaPDF = window.open('', '_blank');
             let contenido = '';
@@ -1787,7 +1867,7 @@
                         🖨️ Imprimir / Guardar PDF
                     </button>
                     <div class="header">
-                        
+
                         <h1>Eivy René Romero Mendoza</h1>
                         <p>Desarrollador Full Stack | Ingeniero en TI</p>
                         <p style="margin-top: 15px;">📧 eivyromero.26@gmail.com | 📱 0987213633 | 📍 Manta, Ecuador</p>
@@ -1828,7 +1908,7 @@
         }
 
         // ==================== EXPERIENCIA ====================
-        
+
         function abrirModalExperiencia() {
             if (!isAdmin) {
                 alert('Debes iniciar sesión como administrador para realizar esta acción');
@@ -1865,14 +1945,14 @@
             experienciaEditando = index;
             const cards = document.querySelectorAll('#experienceList .experience-card');
             const card = cards[index];
-            
+
             document.getElementById('tituloModalExp').textContent = 'Editar Experiencia Laboral';
             document.getElementById('expTitulo').value = card.querySelector('.experience-title').textContent;
-            
+
             const fechaTexto = card.querySelector('.experience-date').textContent;
             const esActual = fechaTexto.includes('Presente');
             document.getElementById('expActual').checked = esActual;
-            
+
             const partesFecha = fechaTexto.split(' - ');
             if (partesFecha.length > 0) {
                 const meses = {'Enero':'01','Febrero':'02','Marzo':'03','Abril':'04','Mayo':'05','Junio':'06',
@@ -1881,7 +1961,7 @@
                 if (meses[mesInicio] && anioInicio) {
                     document.getElementById('expFechaInicio').value = `${anioInicio}-${meses[mesInicio]}`;
                 }
-                
+
                 if (partesFecha.length > 1 && partesFecha[1].trim() !== 'Presente') {
                     const [mesFin, anioFin] = partesFecha[1].trim().split(' ');
                     if (meses[mesFin] && anioFin) {
@@ -1889,12 +1969,12 @@
                     }
                 }
             }
-            
+
             document.getElementById('expDescripcion').value = card.querySelector('.experience-description').textContent.trim();
-            
+
             const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent).join(', ');
             document.getElementById('expTags').value = tags;
-            
+
             document.getElementById('expFechaFin').disabled = esActual;
             document.getElementById('modalExperiencia').classList.add('active');
         }
@@ -1959,7 +2039,7 @@
         }
 
         // ==================== CURSOS ====================
-        
+
         function abrirModalCurso() {
             if (!isAdmin) {
                 alert('Debes iniciar sesión como administrador para realizar esta acción');
@@ -1986,15 +2066,15 @@
             cursoEditando = index;
             const cards = document.querySelectorAll('#cursosList .curso-card');
             const card = cards[index];
-            
+
             document.getElementById('tituloModalCurso').textContent = 'Editar Curso';
             document.getElementById('cursoTitulo').value = card.querySelector('.curso-title').textContent;
             document.getElementById('cursoAnio').value = card.querySelector('.experience-date').textContent;
             document.getElementById('cursoDescripcion').value = card.querySelector('.curso-description').textContent.trim();
-            
+
             const tags = Array.from(card.querySelectorAll('.tag')).map(t => t.textContent).join(', ');
             document.getElementById('cursoTags').value = tags;
-            
+
             document.getElementById('modalCurso').classList.add('active');
         }
 
@@ -2049,7 +2129,7 @@
         }
 
         // ==================== RECONOCIMIENTOS ====================
-        
+
         function abrirModalReconocimiento() {
             if (!isAdmin) {
                 alert('Debes iniciar sesión como administrador para realizar esta acción');
@@ -2075,12 +2155,12 @@
             reconocimientoEditando = index;
             const cards = document.querySelectorAll('#reconocimientosList .reconocimiento-card');
             const card = cards[index];
-            
+
             document.getElementById('tituloModalRecon').textContent = 'Editar Reconocimiento';
             document.getElementById('reconTitulo').value = card.querySelector('.reconocimiento-title').textContent;
             document.getElementById('reconAnio').value = card.querySelector('.experience-date').textContent;
             document.getElementById('reconDescripcion').value = card.querySelector('.reconocimiento-description').textContent.trim();
-            
+
             document.getElementById('modalReconocimiento').classList.add('active');
         }
 
@@ -2130,11 +2210,11 @@
         }
 
         // ==================== SERVICIOS TÉCNICOS ====================
-        
+
         function abrirModalServicio() {
             const serviciosSeleccionados = [];
             const checkboxes = document.querySelectorAll('#garage input[type="checkbox"]:checked');
-            
+
             if (checkboxes.length === 0) {
                 alert('Por favor selecciona al menos un servicio antes de solicitar');
                 return;
@@ -2219,7 +2299,7 @@ ${motivo}
             }
 
             alert('¡Solicitud enviada! Te contactaremos pronto.');
-            
+
             // Limpiar formulario y checkboxes
             cerrarModalServicio();
             document.querySelectorAll('#garage input[type="checkbox"]').forEach(checkbox => {
@@ -2228,10 +2308,10 @@ ${motivo}
         }
 
         // ==================== IMPRIMIR CV COMPLETO ====================
-        
+
         function imprimirCVCompleto() {
             const ventana = window.open('', '', 'width=800,height=600');
-            
+
             ventana.document.write(`
                 <!DOCTYPE html>
                 <html lang="es">
@@ -2297,7 +2377,7 @@ ${motivo}
                 </body>
                 </html>
             `);
-            
+
             ventana.document.close();
             setTimeout(() => {
                 ventana.print();
@@ -2305,7 +2385,7 @@ ${motivo}
         }
 
         // ==================== ACTUALIZAR ÍNDICES ====================
-        
+
         function actualizarIndices() {
             // Actualizar índices de experiencia
             document.querySelectorAll('#experienceList .experience-card').forEach((card, index) => {
@@ -2340,12 +2420,44 @@ ${motivo}
             });
         }
 
-        // Inicializar al cargar la página
-        window.addEventListener('DOMContentLoaded', () => {
-            actualizarIndices();
-            mostrarVista('menu');
-            actualizarEstadoAdmin();
+        // ==================== ATAJO DE TECLADO CTRL+J ====================
+
+        document.addEventListener('keydown', function(event) {
+            if ((event.ctrlKey || event.metaKey) && event.key === 'j') {
+                event.preventDefault();
+                abrirModalLogin();
+            }
         });
     </script>
 </body>
 </html>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    cargarExperiencias();
+});
+
+function cargarExperiencias() {
+    fetch("/api/experiences/")
+        .then(res => res.json())
+        .then(data => {
+            const contenedor = document.getElementById("experiences-list");
+            contenedor.innerHTML = "";
+
+            data.forEach(exp => {
+                contenedor.innerHTML += `
+                    <div>
+                        <h3>${exp.position} - ${exp.company}</h3>
+                        <p>${exp.description}</p>
+                        <button onclick="eliminarExperiencia(${exp.id})">Eliminar</button>
+                    </div>
+                `;
+            });
+        });
+}
+
+function eliminarExperiencia(id) {
+    fetch(`/api/experiences/${id}/delete/`, {
+        method: "DELETE"
+    }).then(() => cargarExperiencias());
+}
+</script>
