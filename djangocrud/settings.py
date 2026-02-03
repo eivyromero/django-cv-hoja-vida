@@ -36,20 +36,15 @@ if not ALLOWED_HOSTS:
 # APPLICATIONS
 # --------------------------------------------------
 INSTALLED_APPS = [
+    'tasks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Third party
-    'corsheaders',
-    'rest_framework',
-    
-    # Local apps
-    'tasks',
 ]
+
 
 
 # --------------------------------------------------
@@ -95,27 +90,16 @@ TEMPLATES = [
 # --------------------------------------------------
 # DATABASE
 # --------------------------------------------------
-if os.environ.get('DATABASE_URL'):
-    # Producción (Render con PostgreSQL)
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
-else:
-    # Desarrollo local (PostgreSQL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'cv_db',
-            'USER': 'postgres',
-            'PASSWORD': '123456',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
+import dj_database_url
+import os
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 
 
 # --------------------------------------------------
