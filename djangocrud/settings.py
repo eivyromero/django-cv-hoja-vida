@@ -19,28 +19,36 @@ SECRET_KEY = os.environ.get(
     'django-insecure-7e%+g7ak4$)^=6wq16wnr(f_xb860su#%#*x#p&+h8t(9-_p5%'
 )
 
-# DEBUG: True en desarrollo, False en producción
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# DEBUG: False en producción
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS
+ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# Si no hay RENDER_EXTERNAL_HOSTNAME, permite todos (solo para desarrollo)
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ['*']
 
 # --------------------------------------------------
 # APPLICATIONS
 # --------------------------------------------------
 INSTALLED_APPS = [
-    'corsheaders',
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-     'tasks',  # tu app
+    
+    # Third party
+    'corsheaders',
+    'rest_framework',
+    
+    # Local apps
+    'tasks',
 ]
 
 
@@ -50,13 +58,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ⭐ AGREGAR ESTA LÍNEA
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',  # ⭐ AGREGAR ESTA LÍNEA
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 # --------------------------------------------------
@@ -87,8 +95,6 @@ TEMPLATES = [
 # --------------------------------------------------
 # DATABASE
 # --------------------------------------------------
-# Usar PostgreSQL si la variable DATABASE_URL está presente (Render)
-# Sino, usar SQLite para desarrollo local
 if os.environ.get('DATABASE_URL'):
     # Producción (Render con PostgreSQL)
     DATABASES = {
@@ -99,17 +105,17 @@ if os.environ.get('DATABASE_URL'):
         )
     }
 else:
-    # Desarrollo local (SQLite)
+    # Desarrollo local (PostgreSQL)
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cv_db',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cv_db',
+            'USER': 'postgres',
+            'PASSWORD': '123456',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
 
 
 # --------------------------------------------------
@@ -138,56 +144,9 @@ REST_FRAMEWORK = {
 # --------------------------------------------------
 # CORS SETTINGS
 # --------------------------------------------------
-CORS_ALLOW_ALL_ORIGINS = True  # Para desarrollo
-CORS_ALLOW_CREDENTIALS = True
-
-# --------------------------------------------------
-# INTERNATIONALIZATION
-# --------------------------------------------------
-LANGUAGE_CODE = 'es-ec'
-TIME_ZONE = 'America/Guayaquil'
-USE_I18N = True
-USE_TZ = True
-
-# --------------------------------------------------
-# STATIC FILES (Whitenoise)
-# --------------------------------------------------
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# --------------------------------------------------
-# MEDIA FILES
-# --------------------------------------------------
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# --------------------------------------------------
-# AUTH
-# --------------------------------------------------
-LOGIN_URL = '/signin'
-
-# --------------------------------------------------
-# DEFAULT PK
-# --------------------------------------------------
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# --------------------------------------------------
-# CSRF
-# --------------------------------------------------
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.onrender.com',
-    
-]
-# ==================== CORS CONFIGURATION ====================
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
-    "http://localhost:8000",
-]
-
-# Para desarrollo (NO usar en producción):
+# Para desarrollo
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -209,3 +168,70 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# --------------------------------------------------
+# INTERNATIONALIZATION
+# --------------------------------------------------
+LANGUAGE_CODE = 'es-ec'
+TIME_ZONE = 'America/Guayaquil'
+USE_I18N = True
+USE_TZ = True
+
+# --------------------------------------------------
+# STATIC FILES (Whitenoise)
+# --------------------------------------------------
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Directorios adicionales donde Django buscará archivos estáticos
+STATICFILES_DIRS = []
+
+# Storage de archivos estáticos
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# --------------------------------------------------
+# MEDIA FILES
+# --------------------------------------------------
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# --------------------------------------------------
+# AUTH
+# --------------------------------------------------
+LOGIN_URL = '/signin'
+
+# --------------------------------------------------
+# DEFAULT PK
+# --------------------------------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# --------------------------------------------------
+# CSRF
+# --------------------------------------------------
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+]
+
+# --------------------------------------------------
+# LOGGING (para debugging en producción)
+# --------------------------------------------------
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
