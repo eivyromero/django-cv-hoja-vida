@@ -36,14 +36,9 @@ if not ALLOWED_HOSTS:
 # APPLICATIONS
 # --------------------------------------------------
 INSTALLED_APPS = [
-    'tasks',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 
 
 
@@ -51,16 +46,11 @@ INSTALLED_APPS = [
 # MIDDLEWARE
 # --------------------------------------------------
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 # --------------------------------------------------
 # URLS & WSGI
@@ -90,16 +80,7 @@ TEMPLATES = [
 # --------------------------------------------------
 # DATABASE
 # --------------------------------------------------
-import dj_database_url
-import os
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+DATABASES = {}
 
 
 # --------------------------------------------------
